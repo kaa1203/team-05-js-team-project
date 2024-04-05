@@ -1,34 +1,4 @@
 @import './common';
 @import './example';
+@import './pagination.scss';
 
-
-#container {
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  margin-bottom: 10px;
-}
-
-#pagination {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.pagination-link {
-  display: inline-block;
-  padding: 5px 10px;
-  margin: 0 5px;
-  background-color: #ccc;
-  cursor: pointer;
-}
-
-.pagination-link.active {
-
-}
