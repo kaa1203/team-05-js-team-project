@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Filmoteka</title>
+    <link rel="stylesheet" href="./sass/index.scss" />
+    <link rel="stylesheet" href="./sass/general.scss" />
+    <link rel="stylesheet" href="./sass/style.css">
+    <link rel="stylesheet" href="./sass/_pagnitation.scss">
+    <script type="module" src="./index.js"></script>
+</head>
+
+<body>
+    <div id="container">
+        <ul id="list">
+            <!-- Content will be dynamically added here -->
+        </ul>
+        <div id="pagination" class="pagination-container">
+            <span id="prev" class="pagination-arrow">&lt;</span>
+            <div id="pagination-links" class="pagination-links"></div>
+            <span id="next" class="pagination-arrow">&gt;</span>
+        </div>
+    </div>
+    <include src="./partials/example.html"></include>
+</body>
+<script type="module" src="./pagnitation.js"></script>
+
+</html>
