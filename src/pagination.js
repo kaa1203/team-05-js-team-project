@@ -1,3 +1,20 @@
+<<<<<<< Updated upstream
+=======
+const options = { method: 'GET', headers: { accept: 'application/json' } };
+const options = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization:
+      'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5MzI4ZDNhN2M5MTE3MGM2MzNkY2E1OGNkMTc2MzM0NiIsInN1YiI6IjY2MTAwYmM0M2U2ZjJiMDEzMTM4OTVhNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.qexB_iqBS_60mzYwyATEfpKtUXCi2HtfdoouqNQvyts',
+  },
+};
+
+fetch('https://api.themoviedb.org/3/trending/all/day?language=en-US', options)
+  .then(response => response.json())
+  .then(response => console.log(response))
+  .catch(err => console.error(err));
+>>>>>>> Stashed changes
 // PAGINATION
 const itemsPerPage = 5;
 const data = Array.from({ length: 30 }, (_, i) => `Item ${i + 1}`);
