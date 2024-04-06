@@ -3,7 +3,7 @@ header class="header-bg">
 <div class="container">
 <div class="header-section">
     <nav class="navigation">
-        <a class="navigation-logo">
+        <a href="/index.html" class="navigation-logo">
             <svg class="movie-icon" width="24" height="24">
                 <use href="src/images/movie-icon.png"></use>
             </svg>
@@ -14,19 +14,24 @@ header class="header-bg">
                 <a href="" class="side-link_nav">Home</a>
             </li>
             <li class="library-item">
-                <a href="/library.html" class="side-nav_library">library</a>
+                <a href="./index.html" class="side-nav_library">library</a>
             </li>
         </ul>
     </nav>
-    <form class="search-form" id="search-form">
-        <input type="text" name="query" autocomplete="off" placeholder="search movie" class="search"/>
-        <button type="submit" class="search-button">
-            <svg class="search-icon" width="12" height="12">
-                <use href=".images/Search_alt_light.svg"></use>
-            </svg>
-        </button>
-    </form>
-</div>
+    <form>
+        <div role="group">
+            <ul class="storage js-search">
+                <li class="storage-item">
+                    <label class="storage-label">
+                        <input type="radio" name="storage-button" value="watched" class="storage-input"
+                        checked
+                        />
+                        <span class="storage-button" id="js-Queuebutton">Queue</span>
+                    </label>
+                </li>
+            </ul>
+        </form>
+        </div>
 <div class="warning-header"></div>
 <div class="search result-warning"></div>
 </div>
