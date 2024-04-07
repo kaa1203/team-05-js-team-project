@@ -55,11 +55,9 @@ function setupPagination(items, wrapper, itemsPerPage) {
 
       displayList(items, list, itemsPerPage, i);
 
-      // Remove 'active' class from all pagination links
       const paginationLinks = document.querySelectorAll('.pagination-link');
       paginationLinks.forEach(link => link.classList.remove('active'));
 
-      // Add 'active' class to the clicked pagination link
       this.parentNode.classList.add('active');
     });
 
