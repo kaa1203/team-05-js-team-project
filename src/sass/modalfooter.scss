@@ -1,3 +1,110 @@
-.modalfooter {
-    color: red;
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
 }
+
+.modal-content {
+    background-color: #ffffff;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 90%;
+    max-width: 600px;
+}
+
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+.team-members {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+
+    @media screen and (max-width: 370px) {
+            display: block ;
+            width: 100%;
+        }
+}
+
+.team-member {
+    width: calc(50% - 10px);
+    margin-bottom: 20px;
+    @media screen and (max-width: 370px) {
+        width: 100%;
+            margin-bottom: 20px;
+        }
+}
+
+.team-member img {
+    width: 75%;
+    height: auto;
+    border-radius: 50%;
+    margin: auto;
+}
+
+.team-member h3 {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @media screen and (max-width: 370px) {
+        font-size: 15px;
+    }
+
+}
+
+.team-member p {
+    margin: 0;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    @media screen and (max-width: 370px) {
+            font-size: 13px;
+        }
+}
+
+.ourteam {
+    display: flex;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    font-size: 40px;
+
+    @media screen and (max-width: 370px) {
+            font-size: 30px;
+        }
+}
+
+
+
+
+
