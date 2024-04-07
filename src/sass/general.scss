@@ -14,7 +14,7 @@
 body {
     font-family: "Roboto", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 16px;
-    font-weight: 400;
+    font-weight: 500;
     line-height: 16px;
 }
 
@@ -40,11 +40,15 @@ img {
 }
 
 .section {
-    padding: 100px;
+    padding: 40px;
 }
 
 .icon {
     width: 16px;
     height: 16px;
     fill: currentColor;
+}
+
+.is-hidden {
+    display: none!important;
 }
