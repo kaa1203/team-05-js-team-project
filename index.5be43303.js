@@ -1,2 +1,0 @@
-const e={option:{key:"334986b59c344f376defb99ce94fed26",query:"",include_adult:!1,language:"en-US",primary_release_year:"",page:1,region:"",year:""}},{language:a,key:n}=e.option;try{(async function(){const e=await fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=${n}&language=${a}`);return await e.json()})().then((e=>console.log(e)))}catch(e){console.log(e)}
-//# sourceMappingURL=index.5be43303.js.map
