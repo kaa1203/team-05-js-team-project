@@ -1,0 +1,2 @@
+document.addEventListener("DOMContentLoaded",(function(){const e=document.getElementById("myModal"),n=document.querySelectorAll("[data-modal-open]"),t=document.querySelector(".close");function d(){e.style.display="none"}n.forEach((function(n){n.addEventListener("click",(function(){e.style.display="block"}))})),t.addEventListener("click",d),window.addEventListener("click",(function(n){n.target==e&&d()})),document.addEventListener("keydown",(function(n){"Escape"===n.key&&"block"===e.style.display&&d()}))}));
+//# sourceMappingURL=index.e1b9d181.js.map
