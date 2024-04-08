@@ -87,7 +87,6 @@ function onClick(e) {
     }
 
     if (e.target.classList.contains("modal-button")) {
-        // will be back to this later once i find a much better approach to this
         const movieData = {
             id: e.target.parentElement.previousElementSibling.previousElementSibling.parentElement.parentElement.dataset.id,
             imgURL: e.target.parentElement.previousElementSibling.previousElementSibling.parentElement.previousElementSibling.children[0].src,
@@ -110,8 +109,8 @@ function onClick(e) {
 }
 
 function addToList(movieData, list) {
-    let listStorage = JSON.parse(localStorage.getItem(list));
-    let onList = false
+    let listStorage = JSON.parse(localStorage.getItem(list)) || [];
+    let onList = false;
 
     for (const movie of listStorage) {
         if (movie.id == movieData.id) {
@@ -124,3 +123,33 @@ function addToList(movieData, list) {
         localStorage.setItem(list, JSON.stringify(listStorage));
     }
 }
+
+function displayQueueMovies() {
+    let queueList = JSON.parse(localStorage.getItem('queueList')) || [];
+    let queueContainer = document.querySelector('.queue-container');
+
+    // Clear previous content
+    queueContainer.innerHTML = '';
+
+    queueList.forEach(movie => {
+        let movieEl = `
+        <div class="queue-movie">
+          <img src="${movie.imgURL}" alt="${movie.title}" class="queue-movie-img">
+          <div class="queue-movie-details">
+            <h3 class="queue-movie-title">${movie.title}</h3>
+            <p class="queue-movie-info">Rating: ${movie.votes} | Popularity: ${movie.popularity}</p>
+            <p class="queue-movie-info">Original Title: ${movie.originalTitle}</p>
+            <p class="queue-movie-info">Genre: ${movie.genre}</p>
+            <p class="queue-movie-about">${movie.about}</p>
+          </div>
+        </div>
+      `;
+        queueContainer.insertAdjacentHTML('beforeend', movieEl);
+    });
+
+    // Show the queue container
+    queueContainer.style.display = 'block';
+}
+
+// Call the function to display queue movies
+displayQueueMovies();
