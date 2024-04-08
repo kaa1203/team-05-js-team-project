@@ -1,29 +1,25 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const modal = document.getElementById('myModal');
-    const modalOpenButtons = document.querySelectorAll('[data-modal-open]');
-    const modalCloseButton = document.querySelector('.close');
+const modal = document.getElementById('myModal');
+const modalOpenButtons = document.querySelectorAll('[data-modal-open]');
+const modalCloseButton = document.querySelector('.close');
 
-    function closeModal() {
-        modal.style.display = 'none';
-    }
+function closeModal() {
+    modal.classList.add("is-hidden");
+}
 
-    modalOpenButtons.forEach(function (button) {
-        button.addEventListener('click', function () {
-            modal.style.display = 'block';
-        });
-    });
-
-    modalCloseButton.addEventListener('click', closeModal);
-
-    window.addEventListener('click', function (event) {
-        if (event.target == modal) {
-            closeModal();
-        }
-    });
-
-    document.addEventListener('keydown', function (event) {
-        if (event.key === 'Escape' && modal.style.display === 'block') {
-            closeModal();
-        }
-    });
+modalOpenButtons[0].addEventListener('click', function () {
+    modal.classList.remove("is-hidden");
 });
+
+modalCloseButton.addEventListener('click', closeModal);
+
+document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') {
+        closeModal();
+    }
+});
+
+document.addEventListener("click", (e) => {
+    if (e.target.classList.contains("modal-overlay")) {
+        closeModal();
+    }
+})
