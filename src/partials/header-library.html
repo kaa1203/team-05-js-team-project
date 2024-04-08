@@ -1,0 +1,54 @@
+<header>
+    <div class="container">
+        <nav class="nav-bar">
+            <h2 class="nav-logo">
+                <svg class="icon">
+                    <use href="./images/icons.svg?#film"></use>
+                </svg>
+                filmoteka
+            </h2>
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active">home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">my library</a>
+                </li>
+            </ul>
+        </nav>
+
+        <form>
+            <div role="group">
+              <ul class="storage js-choice-storage">
+                <li class="storage__item">
+                  <label class="storage__label">
+                    <input
+                      type="radio"
+                      name="storage-btn"
+                      value="Watched"
+                      class="storage__input visuallyhidden"
+                      checked
+                    />
+                    <span class="storage__btn" id="js-WatchedButton">Watched</span>
+                  </label>
+                </li>
+                <li class="storage__item">
+                  <label class="storage__label">
+                    <input
+                      type="radio"
+                      name="storage-btn"
+                      value="Queue"
+                      class="storage__input visuallyhidden"
+                    />
+                    <span class="storage__btn" id="js-QueueButton">Queue</span>
+                  </label>
+                </li>
+              </ul>
+            </form>
+          </div>
+          <div class="js-warning header-warning"></div>
+          <div class="js-search-results header-warning"></div>
+        </div>
+      </header>
+    </div>
+</header>
