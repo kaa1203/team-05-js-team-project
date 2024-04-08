@@ -1,5 +1,5 @@
-export const BASE_URL = "https://api.themoviedb.org";
-const API_KEY = '9328d3a7c91170c633dca58cd1763346';
+export const BASE_URL = "https://api.themoviedb.org/3";
+const API_KEY = "334986b59c344f376defb99ce94fed26";
 
 export const params = {
     option: {

@@ -10,8 +10,15 @@
   </head>
   <body>
     <!-- ❗️❗️❗️ Add partials like so for every page -->
-      <include src="./partials/pagination.html"></include>
-    <!-- As for js file, I don't know how to compile it into index.js so for now put your scripts here -->
+    <include src="./partials/header.html"></include>
+    <include src="./partials/main.html"></include>
+    <include src="./partials/pagination.html"></include>
+
+    <!-- I don't know how to compile multiple js into one. My plan is to compile these js files into index.js but as of now, i don't know how to do it; so i'll do this for the time being -->
+    <script type="module" src="./header.js"></script>
+    <script type="module" src="./search.js"></script>
+    <script type="module" src="./movie-modal.js"></script>
     <script type="module" src="./pagination.js"></script>
   </body>
 </html>
+                  
