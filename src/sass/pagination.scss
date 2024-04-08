@@ -31,7 +31,7 @@ li {
 
 .pagination-arrow {
   padding: 5px 10px;
-  margin: 0 5px;
+  margin: 0 2px; /* Adjust margin for spacing between arrows and links */
   background-color: transparent;
   cursor: pointer;
 }
@@ -55,7 +55,7 @@ li {
   border-radius: 5px;
   background-color: #ff6b08;
   color: #fff;
-  padding: 5px 10px;
+  padding: 10px 15x;
 }
 
 .grid-container {
@@ -130,4 +130,19 @@ item.title {
 #next {
   margin: 0 10px;
   cursor: pointer;
+}
+
+
+#list li div:nth-child(2) /* Title*/ {
+  margin-top: 5px;
+  margin-bottom: 3px;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 500;
+}
+#list li div:nth-child(3), /* Genre */
+    #list li div:nth-child(4) {
+  /* Year */
+  font-size: 12px;
+  font-weight: 500;
 }
