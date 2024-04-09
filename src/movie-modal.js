@@ -84,7 +84,10 @@ function createModal(movieDetails) {
 
 function onClick(e) {
     if (e.target.classList.contains("overlay") || e.target.classList.contains("modal-close")) {
-        overlay[0].remove();
+        overlay[0].children[0].classList.add("close");
+        setTimeout(() => {
+            overlay[0].remove();
+        }, 1400);
     }
 
     if (e.target.classList.contains("modal-button")) {
@@ -166,7 +169,6 @@ function isMovieOnList(movieId) {
             }
         });
     }
-    console.log(queueButton);
 }
 
 function addToList(movieData, list) {
