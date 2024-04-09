@@ -25,9 +25,9 @@ li {
 
 .pagination-container {
   display: flex;
-  justify-content: center;
+  justify-content: space-between; /* Align items with space between them */
   align-items: center;
-  margin-top: 20px;
+margin-top: 20px
 }
 
 .pagination-arrow {
