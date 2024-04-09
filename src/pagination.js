@@ -10,7 +10,7 @@ const options = {
   },
 };
 
-const itemsPerPage = 20;
+const itemsPerPage = 10;
 let movieData = [];
 let genreMap = {};
 
