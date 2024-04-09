@@ -1,0 +1,152 @@
+#container {
+  max-width: 600px;
+  margin: 0 auto; /* Center the container horizontally */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the content vertically */
+}
+
+a {
+  color:var(--black);
+  text-decoration: none;
+}
+a .active{
+  color: white;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 10px;
+  text-align: left; /* Align text to the left */
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: space-between; /* Align items with space between them */
+  align-items: center;
+margin-top: 20px
+}
+
+.pagination-arrow {
+  padding: 5px 10px;
+  margin: 0 2px; /* Adjust margin for spacing between arrows and links */
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.pagination-links {
+  display: flex;
+  justify-content: center;
+}
+
+.pagination-link {
+  display: inline-block;
+  padding: 5px 10px;
+  margin: 0 5px;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+/* Add styles for active pagination link */
+.pagination-link.active {
+  border-radius: 5px;
+  background-color: var(--orange);
+  color: var(--white);
+  padding: 15px 20x;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+}
+
+.grid-container li {
+  text-align: center;
+}
+
+.pagination {
+  display: flex;
+  list-style: none;
+  padding: 0;
+}
+
+.pagination-link {
+  margin-right: 5px;
+}
+
+.pagination-link.active {
+  font-weight: 500;
+  color: var(--white);
+}
+
+#list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+}
+
+#list li {
+  margin: 10px;
+  width: 274px;
+  height: 440px;
+}
+
+.pagination-links {
+  display: flex;
+  justify-content: center;
+}
+
+.pagination-link {
+  margin: 0 5px;
+}
+
+.pagination-link.active {
+  font-weight: bold;
+  color: white; }
+
+#titleDiv {
+  text-transform: uppercase;
+}
+
+item.title {
+  text-transform: uppercase;
+}
+
+.pagination-link  {
+  text-decoration: none;
+  color: rgb(233, 228, 228);
+}
+.pagination-link:hover {
+  opacity: 0.8; /* Reduce opacity on hover */
+  color: white;
+}
+#prev,
+#next {
+  margin: 0 10px;
+  cursor: pointer;
+}
+.ellipsis{
+  margin: 20px;
+}
+
+#list li div:nth-child(2) /* Title*/ {
+  margin-top: 5px;
+  margin-bottom: 3px;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 500;
+}
+#list li div:nth-child(3), /* Genre */
+    #list li div:nth-child(4) {
+  /* Year */
+  font-size: 12px;
+  font-weight: 500;
+}
