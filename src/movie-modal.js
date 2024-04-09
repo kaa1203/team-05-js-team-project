@@ -23,6 +23,7 @@ function movieClicked(e) {
         overlay.className = "overlay";
         document.body.insertAdjacentElement("afterbegin", overlay);
         createModal(movieDetails);
+        isMovieOnList(movieDetails.id);
     }
 }
 
@@ -71,8 +72,8 @@ function createModal(movieDetails) {
                         <p>${about}</p>
                     </div>
                     <div class="modal-buttons">
-                        <button class="modal-button" data-button="watched">add to watched</button>
-                        <button class="modal-button" data-button="queue">add to queue</button>
+                        <button type="button" class="modal-button" data-button="watched">add to watched</button>
+                        <button type="button" class="modal-button" data-button="queue">add to queue</button>
                     </div>
                 </div>
             </div>
@@ -88,31 +89,91 @@ function onClick(e) {
 
     if (e.target.classList.contains("modal-button")) {
         // will be back to this later once i find a much better approach to this
+        let votes = e.target.parentElement.previousElementSibling.previousElementSibling.children[1].children[1].innerText;
+        votes = votes.split("/");
+
         const movieData = {
             id: e.target.parentElement.previousElementSibling.previousElementSibling.parentElement.parentElement.dataset.id,
-            imgURL: e.target.parentElement.previousElementSibling.previousElementSibling.parentElement.previousElementSibling.children[0].src,
+            poster_path: e.target.parentElement.previousElementSibling.previousElementSibling.parentElement.previousElementSibling.children[0].src,
             title: e.target.parentElement.previousElementSibling.previousElementSibling.children[0].children[0].innerText,
-            votes: e.target.parentElement.previousElementSibling.previousElementSibling.children[1].children[1].innerText,
+            vote_average: votes[0],
+            vote_count: votes[1],
             popularity: e.target.parentElement.previousElementSibling.previousElementSibling.children[2].children[1].innerText,
-            originalTitle: e.target.parentElement.previousElementSibling.previousElementSibling.children[3].children[1].innerText,
+            original_title: e.target.parentElement.previousElementSibling.previousElementSibling.children[3].children[1].innerText,
             genre: e.target.parentElement.previousElementSibling.previousElementSibling.children[4].children[1].innerText,
-            about: e.target.parentElement.previousElementSibling.children[1].innerText
+            overview: e.target.parentElement.previousElementSibling.children[1].innerText
         }
 
         if (e.target.dataset.button === "watched") {
-            addToList(movieData, "watchList");
-        }
+            if (e.target.innerText === "ADD TO WATCHED") {
+                addToList(movieData, "watchList");
+                e.target.innerText = "remove from watched"; 
+                removeFromList(movieData.id, "queueList");
+                e.target.nextElementSibling.innerText = "add to queue";
+                e.target.classList.add("selected");
+            } else {
+                removeFromList(movieData.id, "watchList");
+                e.target.innerText = "add to watched";
+                e.target.classList.remove("selected");
+            }
 
+            if (e.target.nextElementSibling.classList.contains("selected")) {
+                e.target.nextElementSibling.classList.remove("selected");
+            }
+        }
+        
         if (e.target.dataset.button === "queue") {
-            addToList(movieData, "queueList");
+            if (e.target.innerText === "ADD TO QUEUE") {
+                addToList(movieData, "queueList");
+                e.target.innerText = "remove from queue";
+                removeFromList(movieData.id, "watchList");
+                e.target.previousElementSibling.innerText = "add to watched";
+                e.target.classList.add("selected");
+            } else {
+                removeFromList(movieData.id, "queueList");
+                e.target.innerText = "add to queue";
+                e.target.classList.remove("selected");
+            }
+
+            if (e.target.previousElementSibling.classList.contains("selected")) {
+                e.target.previousElementSibling.classList.remove("selected");
+            }
         }
     }
+}
+
+function isMovieOnList(movieId) {
+    let watchList = JSON.parse(localStorage.getItem("watchList"));
+    let queueList = JSON.parse(localStorage.getItem("queueList"));
+    let modalCont = document.querySelector(".modal-container");
+    let watchedButton = modalCont.children[1].children[1].children[2].children[0];
+    let queueButton = modalCont.children[1].children[1].children[2].children[1];
+    
+    if (watchList.length != 0) {
+        watchList.forEach(movie => {
+            if (movie.id === movieId) {
+                watchedButton.innerText = "remove from watched";
+                watchedButton.classList.add("selected");
+            }
+        });
+    }
+
+    if (queueList.length != 0) {
+        queueList.forEach(movie => {
+            if (movie.id === movieId) {
+                queueButton.innerText = "remove from queue";
+                queueButton.classList.add("selected");
+            }
+        });
+    }
+    console.log(queueButton);
 }
 
 function addToList(movieData, list) {
     let listStorage = JSON.parse(localStorage.getItem(list));
     let onList = false
 
+    // Not sure but this block looks kinda awkward...
     for (const movie of listStorage) {
         if (movie.id == movieData.id) {
             onList = true;
@@ -123,4 +184,17 @@ function addToList(movieData, list) {
         listStorage.push(movieData);
         localStorage.setItem(list, JSON.stringify(listStorage));
     }
+
+}
+
+function removeFromList(movieId, list) {
+    let listStorage = JSON.parse(localStorage.getItem(list));
+
+    listStorage
+        .filter(movie => movie.id == movieId)
+        .map(movie => {
+            let index = listStorage.indexOf(movie)
+            listStorage.splice(index, 1), listStorage;
+            localStorage.setItem(list, JSON.stringify(listStorage))
+        });
 }

@@ -44,7 +44,7 @@ function displayMovies() {
   }
 }
 
-function createCards(movies) {
+export function createCards(movies) {
   movies
     .map(
       async ({

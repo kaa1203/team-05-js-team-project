@@ -6,10 +6,6 @@
   align-items: center; /* Center the content vertically */
 }
 
-a {
-  color:var(--black);
-  text-decoration: none;
-}
 a .active{
   color: white;
 }
@@ -27,7 +23,7 @@ li {
   display: flex;
   justify-content: space-between; /* Align items with space between them */
   align-items: center;
-margin-top: 20px
+  margin-top: 20px
 }
 
 .pagination-arrow {
@@ -47,7 +43,8 @@ margin-top: 20px
   padding: 5px 10px;
   margin: 0 5px;
   background-color: transparent;
-  cursor: pointer;
+  color: var(--black);
+  // cursor: pointer;
 }
 
 /* Add styles for active pagination link */
