@@ -81,9 +81,10 @@ function createModal(movieDetails) {
     `;
     overlay[0].insertAdjacentHTML("beforeend", modal);
 }
-
+let clicked = false; 
 function onClick(e) {
     if (e.target.classList.contains("overlay") || e.target.classList.contains("modal-close")) {
+        overlay[0].classList.add("no-click");
         overlay[0].children[0].classList.add("close");
         setTimeout(() => {
             overlay[0].remove();

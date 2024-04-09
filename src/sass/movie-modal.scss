@@ -8,6 +8,10 @@
     z-index: 10;
 }
 
+.no-click {
+    pointer-events: none;
+}
+
 .modal-container {
     position: absolute;
     top: 50%;
