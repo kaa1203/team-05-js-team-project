@@ -1,10 +1,10 @@
-const movieCon = document.querySelector(".movie-list");
+export const movieCon = document.querySelector(".movie-list");
 const overlay = document.getElementsByClassName("overlay");
 
 movieCon.addEventListener("click", movieClicked);
 document.addEventListener("click", onClick);
 
-function movieClicked(e) {
+export function movieClicked(e) {
     e.preventDefault();
     if (e.target.tagName === "IMG") {
         const movieDetails = {
@@ -15,10 +15,11 @@ function movieClicked(e) {
             originalTitle: e.target.nextElementSibling.children[0].dataset.title,
             title: e.target.nextElementSibling.children[0].innerText,
             genre: e.target.nextElementSibling.children[0].nextElementSibling.innerText,
-            release: e.target.nextElementSibling.children[0].nextElementSibling.nextElementSibling.dataset.year,
+            release_date: e.target.nextElementSibling.children[0].nextElementSibling.nextElementSibling.dataset.year,
             vote: e.target.nextElementSibling.children[0].nextElementSibling.nextElementSibling.nextElementSibling.innerText,
             voteCount: e.target.nextElementSibling.children[0].nextElementSibling.nextElementSibling.nextElementSibling.dataset.count,
         }
+        
         let overlay = document.createElement("div");
         overlay.className = "overlay";
         document.body.insertAdjacentElement("afterbegin", overlay);
@@ -80,15 +81,11 @@ function createModal(movieDetails) {
         </div>
     `;
     overlay[0].insertAdjacentHTML("beforeend", modal);
-}
-let clicked = false; 
+} 
+
 function onClick(e) {
-    if (e.target.classList.contains("overlay") || e.target.classList.contains("modal-close")) {
-        overlay[0].classList.add("no-click");
-        overlay[0].children[0].classList.add("close");
-        setTimeout(() => {
-            overlay[0].remove();
-        }, 1400);
+    if (e.target.classList.contains("modal-close")) {
+        closeModal();
     }
 
     if (e.target.classList.contains("modal-button")) {
@@ -104,7 +101,7 @@ function onClick(e) {
             vote_count: votes[1],
             popularity: e.target.parentElement.previousElementSibling.previousElementSibling.children[2].children[1].innerText,
             original_title: e.target.parentElement.previousElementSibling.previousElementSibling.children[3].children[1].innerText,
-            genre: e.target.parentElement.previousElementSibling.previousElementSibling.children[4].children[1].innerText,
+            genre_ids: e.target.parentElement.previousElementSibling.previousElementSibling.children[4].children[1].innerText,
             overview: e.target.parentElement.previousElementSibling.children[1].innerText
         }
 
@@ -200,4 +197,12 @@ function removeFromList(movieId, list) {
             listStorage.splice(index, 1), listStorage;
             localStorage.setItem(list, JSON.stringify(listStorage))
         });
+}
+
+function closeModal() {
+    overlay[0].children[0].classList.add("close");
+    
+    setTimeout(() => {
+        overlay[0].remove();
+    }, 1400);
 }
