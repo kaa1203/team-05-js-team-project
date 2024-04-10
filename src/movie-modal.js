@@ -205,4 +205,15 @@ function closeModal() {
     setTimeout(() => {
         overlay[0].remove();
     }, 1400);
+    // Call triggerActiveButtonClick() when the modal is closed
+    triggerActiveButtonClick();
 }
+
+function triggerActiveButtonClick() {
+    const activeButton = document.querySelector('.ml-buttons .ml-button.active');
+    if (activeButton) {
+        activeButton.click(); // Trigger click event on the active button
+    }
+}
+
+
