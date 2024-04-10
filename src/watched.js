@@ -33,11 +33,17 @@ function onClick(e) {
         if (e.target.innerText === "WATCHED") {
             updateLists(); // Update watchList and queueList
             renderList(watchList); // Render the watchlist
+            // Update button active state
+            document.querySelector('.ml-buttons .ml-button:nth-child(1)').classList.add('active');
+            document.querySelector('.ml-buttons .ml-button:nth-child(2)').classList.remove('active');
         }
 
         if (e.target.innerText === "QUEUE") {
             updateLists(); // Update watchList and queueList
             renderList(queueList); // Render the queuelist
+            // Update button active state
+            document.querySelector('.ml-buttons .ml-button:nth-child(1)').classList.remove('active');
+            document.querySelector('.ml-buttons .ml-button:nth-child(2)').classList.add('active');
         }
     }
 }
