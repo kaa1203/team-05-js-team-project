@@ -1,7 +1,7 @@
 import { BASE_URL, params } from './themoviedb-api.js';
 const { language, key } = params.option;
 
-const movieGalleryEl = document.querySelector('.movie-list');
+export const movieGalleryEl = document.querySelector('.movie-list');
 
 async function fetchGenres() {
   const res = await fetch(
@@ -37,14 +37,14 @@ async function getGenres(genre_ids) {
 function displayMovies() {
   try {
     fetchTrending().then(val => {
-      createCards(val.results);
+      createCards(val.results, true);
     });
   } catch (e) {
     console.log(e);
   }
 }
 
-function createCards(movies) {
+export function createCards(movies, boolean) {
   movies
     .map(
       async ({
@@ -59,24 +59,43 @@ function createCards(movies) {
         vote_average,
         vote_count,
       }) => {
-        let genres = await getGenres(genre_ids);
-        let year = release_date.split('-');
-        let moviesEl = `
-                <li class="movie-item" data-id=${id}>
-                    <a href="https://image.tmdb.org/t/p/w500/${poster_path}" class="movie-link">
-                        <div class="movie-card" data-popularity=${popularity.toFixed(1)}>
-                            <img src="https://image.tmdb.org/t/p/w500/${poster_path}" alt="${overview}">
-                            <div class="movie-details">
-                                <p class="movie-title" data-title="${original_title}">${title}</p>
-                                <span>${genres.map(genre => ` ${genre}`)}</span>
-                                <span data-year="${year[0]}">| ${year[0]}</span>
-                                <p data-count="${vote_count}">${vote_average.toFixed(1)}</p>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-            `;
-        movieGalleryEl.insertAdjacentHTML('afterbegin', moviesEl);
+        if (boolean === true) {
+          let genres = await getGenres(genre_ids);
+          let year = release_date.split('-');
+          let moviesEl = `
+                  <li class="movie-item" data-id=${id}>
+                      <a href="https://image.tmdb.org/t/p/w500/${poster_path}" class="movie-link">
+                          <div class="movie-card" data-popularity=${popularity.toFixed(1)}>
+                              <img src="https://image.tmdb.org/t/p/w500/${poster_path}" alt="${overview}">
+                              <div class="movie-details">
+                                  <p class="movie-title" data-title="${original_title}">${title}</p>
+                                  <span>${genres.map(genre => ` ${genre}`)}</span>
+                                  <span data-year="${year[0]}">| ${year[0]}</span>
+                                  <p data-count="${vote_count}">${vote_average.toFixed(1)}</p>
+                              </div>
+                          </div>
+                      </a>
+                  </li>
+              `;
+              movieGalleryEl.insertAdjacentHTML('afterbegin', moviesEl);
+        } else {
+          let moviesEl = `
+                  <li class="movie-item" data-id=${id}>
+                      <a href="https://image.tmdb.org/t/p/w500/${poster_path}" class="movie-link">
+                          <div class="movie-card" data-popularity=${popularity}>
+                              <img src="https://image.tmdb.org/t/p/w500/${poster_path}" alt="${overview}">
+                              <div class="movie-details">
+                                  <p class="movie-title" data-title="${original_title}">${title}</p>
+                                  <span>${genre_ids}</span>
+                                  <span data-year="${release_date}">| ${release_date}</span>
+                                  <p data-count="${vote_count}">${vote_average}</p>
+                              </div>
+                          </div>
+                      </a>
+                  </li>
+              `;
+              movieGalleryEl.insertAdjacentHTML('afterbegin', moviesEl);
+        }
       }
     )
     .join('');

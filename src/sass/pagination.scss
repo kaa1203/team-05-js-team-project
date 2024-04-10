@@ -12,10 +12,39 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 20px
 }
 
-.pagination-links {
-  display: inline-block;
+.pagination-arrow {
+  padding: 5px 10px;
+  margin: 0 2px; /* Adjust margin for spacing between arrows and links */
+  background-color: transparent;
+  cursor: pointer;
+  padding: 5px 10px;
+  margin: 0 5px;
+  background-color: transparent;
+  color: var(--black);
+  // cursor: pointer;
+}
+
+/* Add styles for active pagination link */
+.pagination-link.active {
+  border-radius: 5px;
+  background-color: var(--orange);
+  color: var(--white);
+  padding: 15px 20x;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+}
+
+.grid-container li {
+  text-align: center;
 }
 
 .pagination-links a {
