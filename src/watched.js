@@ -1,13 +1,27 @@
 import { createCards, movieGalleryEl } from "./index.js";
 import { movieClicked, movieCon } from "./movie-modal.js";
 
+
 let watchList = localStorage.getItem("watchList");
 let queueList = localStorage.getItem("queueList");
 
+function updateLists() {
+    watchList = localStorage.getItem("watchList");
+    queueList = localStorage.getItem("queueList");
+}
+
 // Function to render the appropriate list based on button click
-function renderList(listType) {
+// Function to render the appropriate list based on button click
+function renderList(listType,library_type) {
     movieGalleryEl.innerHTML = ""; // Clear the gallery
-    createCards(JSON.parse(listType), false); // Render the appropriate list
+
+    if (!listType || JSON.parse(listType).length === 0) {
+        // If the list is empty or undefined, display "No Movie Added"
+        movieGalleryEl.innerText = "NO MOVIES ADDED TO " + library_type + " YET";
+    } else {
+        // If the list is not empty, render the list
+        createCards(JSON.parse(listType), false);
+    }
 }
 
 document.addEventListener("click", onClick);
@@ -32,7 +46,7 @@ function onClick(e) {
     if (e.target.tagName === "BUTTON") {
         if (e.target.innerText === "WATCHED") {
             updateLists(); // Update watchList and queueList
-            renderList(watchList); // Render the watchlist
+            renderList(watchList,"WATCHED"); // Render the watchlist
             // Update button active state
             document.querySelector('.ml-buttons .ml-button:nth-child(1)').classList.add('active');
             document.querySelector('.ml-buttons .ml-button:nth-child(2)').classList.remove('active');
@@ -40,7 +54,7 @@ function onClick(e) {
 
         if (e.target.innerText === "QUEUE") {
             updateLists(); // Update watchList and queueList
-            renderList(queueList); // Render the queuelist
+            renderList(queueList,"QUEUE"); // Render the queuelist
             // Update button active state
             document.querySelector('.ml-buttons .ml-button:nth-child(1)').classList.remove('active');
             document.querySelector('.ml-buttons .ml-button:nth-child(2)').classList.add('active');
