@@ -1,5 +1,5 @@
 import { BASE_URL, params } from './themoviedb-api.js';
-const { language, key } = params.option;
+let { language, key, page } = params.option;
 
 export const movieGalleryEl = document.querySelector('.movie-list');
 
