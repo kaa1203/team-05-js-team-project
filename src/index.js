@@ -9,12 +9,11 @@ async function fetchGenres() {
   );
   const data = await res.json();
   return data.genres;
-  //{genres: [{}, {}]}
 }
 
-async function fetchTrending() {
+export async function fetchTrending() {
   const res = await fetch(
-    `${BASE_URL}/trending/movie/day?api_key=${key}&language=${language}`
+    `${BASE_URL}/trending/movie/day?api_key=${key}&language=${language}&page=${page}`
   );
   const data = await res.json();
   return data;
@@ -59,43 +58,48 @@ export function createCards(movies, boolean) {
         vote_average,
         vote_count,
       }) => {
+        let moviesEl = "";
         if (boolean === true) {
           let genres = await getGenres(genre_ids);
           let year = release_date.split('-');
-          let moviesEl = `
+
+          moviesEl = `
                   <li class="movie-item" data-id=${id}>
                       <a href="https://image.tmdb.org/t/p/w500/${poster_path}" class="movie-link">
                           <div class="movie-card" data-popularity=${popularity.toFixed(1)}>
                               <img src="https://image.tmdb.org/t/p/w500/${poster_path}" alt="${overview}">
-                              <div class="movie-details">
+                              <div class="movie-details-wrapper">
                                   <p class="movie-title" data-title="${original_title}">${title}</p>
-                                  <span>${genres.map(genre => ` ${genre}`)}</span>
-                                  <span data-year="${year[0]}">| ${year[0]}</span>
-                                  <p data-count="${vote_count}">${vote_average.toFixed(1)}</p>
+                                  <div class="movie-details">
+                                    <p data-genre="${genres.join(", ")}">${genres.join(", ")} | <span data-year="${year[0]}">${year[0]}</span>
+                                    </p>
+                                    <p class="movie-rating" data-count="${vote_count}">${vote_average.toFixed(1)}</p>
+                                  </div>
                               </div>
                           </div>
                       </a>
                   </li>
               `;
-              movieGalleryEl.insertAdjacentHTML('afterbegin', moviesEl);
         } else {
-          let moviesEl = `
+          moviesEl = `
                   <li class="movie-item" data-id=${id}>
                       <a href="https://image.tmdb.org/t/p/w500/${poster_path}" class="movie-link">
                           <div class="movie-card" data-popularity=${popularity}>
                               <img src="https://image.tmdb.org/t/p/w500/${poster_path}" alt="${overview}">
-                              <div class="movie-details">
+                              <div class="movie-details-wrapper">
                                   <p class="movie-title" data-title="${original_title}">${title}</p>
-                                  <span>${genre_ids}</span>
-                                  <span data-year="${release_date}">| ${release_date}</span>
-                                  <p data-count="${vote_count}">${vote_average}</p>
+                                  <div class="movie-details">
+                                    <p>${genre_ids} | <span data-year="${release_date}">${release_date}</span>
+                                    </p>
+                                    <p class="movie-rating" data-count="${vote_count}">${vote_average}</p>
+                                  </div>
                               </div>
                           </div>
                       </a>
                   </li>
               `;
-              movieGalleryEl.insertAdjacentHTML('afterbegin', moviesEl);
-        }
+            }
+          movieGalleryEl.insertAdjacentHTML('afterbegin', moviesEl);
       }
     )
     .join('');
@@ -105,11 +109,11 @@ function localSetter() {
   let watchlist = localStorage.getItem("watchList");
   let queuelist = localStorage.getItem("queueList");
   
-  if (watchlist === null || watchlist.length === 0) {
+  if (watchlist === null) {
     localStorage.setItem("watchList", "[]");
     
   }
-  if (queuelist === null || watchlist.length === 0) {
+  if (queuelist === null) {
     localStorage.setItem("queueList", "[]");    
   }
 }
