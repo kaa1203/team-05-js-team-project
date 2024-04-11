@@ -14,12 +14,12 @@ export function movieClicked(e) {
             about: e.target.alt,
             originalTitle: e.target.nextElementSibling.children[0].dataset.title,
             title: e.target.nextElementSibling.children[0].innerText,
-            genre: e.target.nextElementSibling.children[0].nextElementSibling.children[0].dataset.genre,
+            genre_ids: e.target.nextElementSibling.children[0].nextElementSibling.children[0].dataset.genre,
             release_date: e.target.nextElementSibling.children[0].nextElementSibling.children[0].children[0].dataset.year,
             vote: e.target.nextElementSibling.children[0].nextElementSibling.children[1].innerText,
             voteCount: e.target.nextElementSibling.children[0].nextElementSibling.children[1].dataset.count,
         }
-
+        
         let overlay = document.createElement("div");
         overlay.className = "overlay";
         document.body.insertAdjacentElement("afterbegin", overlay);
@@ -37,7 +37,7 @@ function createModal(movieDetails) {
         originalTitle,
         title,
         release_date,
-        genre,
+        genre_ids,
         vote,
         voteCount } = movieDetails;
     let modal = `
@@ -66,7 +66,7 @@ function createModal(movieDetails) {
                         </li>
                         <li class="modal-item">
                             <p class="modal-header">genre</p>    
-                            <p>${genre}</p>
+                            <p>${genre_ids}</p>
                         </li>
                     </ul>
                     <div class="modal-about">
@@ -91,7 +91,7 @@ function onClick(e) {
     }
 
     if (e.target.classList.contains("modal-button")) {
-        // will be back to this later once i find a much better approach to this
+        // will change this later... or not.
         let votes = e.target.parentElement.previousElementSibling.previousElementSibling.children[1].children[1].innerText;
         votes = votes.split("/");
 
@@ -107,8 +107,6 @@ function onClick(e) {
             genre_ids: e.target.parentElement.previousElementSibling.previousElementSibling.children[4].children[1].innerText,
             overview: e.target.parentElement.previousElementSibling.children[1].innerText
         }
-
-        console.log(e.target.parentElement.previousElementSibling.previousElementSibling.parentElement.previousElementSibling)
 
         if (e.target.dataset.button === "watched") {
             if (e.target.innerText === "ADD TO WATCHED") {

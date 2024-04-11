@@ -2,7 +2,9 @@ import { BASE_URL, params } from './themoviedb-api.js';
 let { language, key, page } = params.option;
 
 export const movieGalleryEl = document.querySelector('.movie-list');
+export const loaderEl = document.querySelector(".loader");
 
+// fetch the genre list
 async function fetchGenres() {
   const res = await fetch(
     `https://api.themoviedb.org/3/genre/movie/list?api_key=${key}`
@@ -11,6 +13,7 @@ async function fetchGenres() {
   return data.genres;
 }
 
+// fetch trending movies
 export async function fetchTrending() {
   const res = await fetch(
     `${BASE_URL}/trending/movie/day?api_key=${key}&language=${language}&page=${page}`
@@ -19,21 +22,21 @@ export async function fetchTrending() {
   return data;
 }
 
+// get the genre value from genre_ids
 async function getGenres(genre_ids) {
   try {
     let allGenres = await fetchGenres();
-    // console.log(allGenres);
     let matchingGenres = allGenres
       .filter(genre => genre_ids.includes(genre.id))
       .map(genre => genre.name);
     return matchingGenres;
-    //['Drama', 'History']
   } catch (e) {
     console.log(e);
   }
 }
 
-function displayMovies() {
+// Display the movies that were fetch and create movie cards
+export function displayMovies() {
   try {
     fetchTrending().then(val => {
       createCards(val.results, true);
@@ -43,6 +46,7 @@ function displayMovies() {
   }
 }
 
+// Function that creates Cards has two parameters data and boolean, true if the data came from api, false if it were fetched from local storage
 export function createCards(movies, boolean) {
   movies
     .map(
@@ -59,15 +63,18 @@ export function createCards(movies, boolean) {
         vote_count,
       }) => {
         let moviesEl = "";
+        loaderEl.classList.remove("is-hidden");
         if (boolean === true) {
+          let poster_link = `https://image.tmdb.org/t/p/w500/${poster_path}`;
           let genres = await getGenres(genre_ids);
           let year = release_date.split('-');
-
+          poster_path === null ? poster_link = "https://fakeimg.pl/300x450?text=Movie%20Image" : poster_link;
+          
           moviesEl = `
                   <li class="movie-item" data-id=${id}>
-                      <a href="https://image.tmdb.org/t/p/w500/${poster_path}" class="movie-link">
+                      <a href="${poster_link}" class="movie-link">
                           <div class="movie-card" data-popularity=${popularity.toFixed(1)}>
-                              <img src="https://image.tmdb.org/t/p/w500/${poster_path}" alt="${overview}">
+                              <img src="${poster_link}" alt="${overview}">
                               <div class="movie-details-wrapper">
                                   <p class="movie-title" data-title="${original_title}">${title}</p>
                                   <div class="movie-details">
@@ -83,13 +90,13 @@ export function createCards(movies, boolean) {
         } else {
           moviesEl = `
                   <li class="movie-item" data-id=${id}>
-                      <a href="https://image.tmdb.org/t/p/w500/${poster_path}" class="movie-link">
+                      <a href="${poster_link}" class="movie-link">
                           <div class="movie-card" data-popularity=${popularity}>
-                              <img src="https://image.tmdb.org/t/p/w500/${poster_path}" alt="${overview}">
+                              <img src="${poster_link}" alt="${overview}">
                               <div class="movie-details-wrapper">
                                   <p class="movie-title" data-title="${original_title}">${title}</p>
                                   <div class="movie-details">
-                                    <p>${genre_ids} | <span data-year="${release_date}">${release_date}</span>
+                                    <p data-genre="${genre_ids}">${genre_ids} | <span data-year="${release_date}">${release_date}</span>
                                     </p>
                                     <p class="movie-rating" data-count="${vote_count}">${vote_average}</p>
                                   </div>
@@ -98,13 +105,19 @@ export function createCards(movies, boolean) {
                       </a>
                   </li>
               `;
-            }
+        }
+
+        setTimeout(() => { 
+          loaderEl.classList.add("is-hidden")
           movieGalleryEl.insertAdjacentHTML('afterbegin', moviesEl);
+        }, 700);
+  
       }
     )
     .join('');
 }
 
+// A function that creates a quasi-database for movies
 function localSetter() {
   let watchlist = localStorage.getItem("watchList");
   let queuelist = localStorage.getItem("queueList");
@@ -118,5 +131,5 @@ function localSetter() {
   }
 }
 
-localSetter();
 document.addEventListener('DOMContentLoaded', displayMovies);
+document.addEventListener('DOMContentLoaded', localSetter);
