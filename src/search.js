@@ -1,7 +1,7 @@
 import { BASE_URL, params } from "./themoviedb-api.js";
 import { createCards, movieGalleryEl } from "./index.js";
 
-const { language, key, include_adult } = params.option;
+let { language, key, include_adult, q } = params.option;
 
 
 const navFormEl = document.querySelector(".nav-form");
