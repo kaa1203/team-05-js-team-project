@@ -3,9 +3,12 @@ const { language, key } = params.option;
 
 const movieGalleryEl = document.querySelector('.movie-list');
 const paginationContainer = document.getElementById('pagination-links');
+const prevButton = document.getElementById('prev');
+const nextButton = document.getElementById('next');
 
-let totalPages = 30; // Assuming there are 30 pages
+let totalPages = 20; // Up to the 20th page
 let currentPage = 1;
+const pageSize = 50; // Fetch 50 movies per page
 
 async function fetchGenres() {
   try {
@@ -20,16 +23,27 @@ async function fetchGenres() {
   }
 }
 
-async function fetchTrending() {
+async function fetchMoviesByPage(page, pageSize) {
   try {
     const res = await fetch(
-      `${BASE_URL}/trending/movie/day?api_key=${key}&language=${language}`
+      `${BASE_URL}/trending/movie/day?api_key=${key}&language=${language}&page=${page}&page_size=${pageSize}`
     );
     const data = await res.json();
     return data;
   } catch (error) {
-    console.error('Error fetching trending movies:', error);
+    console.error(`Error fetching movies for page ${page}:`, error);
     throw error;
+  }
+}
+
+async function fetchAndDisplayMovies() {
+  try {
+    const moviesData = await fetchMoviesByPage(currentPage, pageSize);
+    totalPages = moviesData.total_pages; // Update total pages based on API response
+    createCards(moviesData.results);
+    generatePaginationLinks();
+  } catch (error) {
+    console.error('Error fetching or displaying movies:', error);
   }
 }
 
@@ -48,9 +62,8 @@ async function getGenres(genre_ids) {
 
 async function createCards(movies) {
   movieGalleryEl.innerHTML = ''; // Clear previous movie cards
-  const startIndex = (currentPage - 1) * 20; // Calculate start index based on current page
 
-  for (const movie of movies.slice(startIndex, startIndex + 20)) {
+  for (const movie of movies) {
     const {
       id,
       popularity,
@@ -89,16 +102,6 @@ async function createCards(movies) {
   }
 }
 
-async function fetchAndDisplayMovies() {
-  try {
-    const moviesData = await fetchTrending();
-    createCards(moviesData.results);
-    generatePaginationLinks();
-  } catch (error) {
-    console.error('Error fetching or displaying movies:', error);
-  }
-}
-
 function generatePaginationLinks() {
   paginationContainer.innerHTML = ''; // Clear existing pagination links
 
@@ -120,9 +123,6 @@ function generatePaginationLinks() {
   }
 }
 
-const prevButton = document.getElementById('prev');
-const nextButton = document.getElementById('next');
-
 prevButton.addEventListener('click', function () {
   if (currentPage > 1) {
     currentPage--; // Move to the previous page
@@ -138,3 +138,17 @@ nextButton.addEventListener('click', function () {
 });
 
 window.addEventListener('DOMContentLoaded', fetchAndDisplayMovies);
+
+function localSetter() {
+  let watchlist = localStorage.getItem('watchList');
+  let queuelist = localStorage.getItem('queueList');
+
+  if (watchlist === null || watchlist.length === 0) {
+    localStorage.setItem('watchList', '[]');
+  }
+  if (queuelist === null || watchlist.length === 0) {
+    localStorage.setItem('queueList', '[]');
+  }
+}
+
+localSetter();
