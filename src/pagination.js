@@ -6,9 +6,9 @@ const paginationContainer = document.getElementById('pagination-links');
 const prevButton = document.getElementById('prev');
 const nextButton = document.getElementById('next');
 
-let totalPages = 20; // Up to the 20th page
+let totalPages = 20; 
 let currentPage = 1;
-const pageSize = 50; // Fetch 50 movies per page
+const pageSize = 50; 
 
 async function fetchGenres() {
   try {
@@ -61,8 +61,7 @@ async function getGenres(genre_ids) {
 }
 
 async function createCards(movies) {
-  movieGalleryEl.innerHTML = ''; // Clear previous movie cards
-
+  movieGalleryEl.innerHTML = ''; 
   for (const movie of movies) {
     const {
       id,
@@ -103,15 +102,17 @@ async function createCards(movies) {
 }
 
 function generatePaginationLinks() {
-  paginationContainer.innerHTML = ''; // Clear existing pagination links
+  paginationContainer.innerHTML = ''; 
+  const startPage = Math.max(1, currentPage - 5);
+  const endPage = Math.min(startPage + 9, totalPages);
 
-  for (let i = currentPage; i <= Math.min(currentPage + 9, totalPages); i++) {
+  for (let i = startPage; i <= endPage; i++) {
     const link = document.createElement('a');
     link.href = '#';
     link.textContent = i;
 
     if (i === currentPage) {
-      link.classList.add('active'); // Add 'active' class to current page link
+      link.classList.add('active'); 
     }
 
     link.addEventListener('click', function (event) {
@@ -125,16 +126,35 @@ function generatePaginationLinks() {
 
 prevButton.addEventListener('click', function () {
   if (currentPage > 1) {
-    currentPage--; // Move to the previous page
+    currentPage--; 
     fetchAndDisplayMovies();
   }
 });
 
 nextButton.addEventListener('click', function () {
   if (currentPage < totalPages) {
-    currentPage++; // Move to the next page
+    currentPage++; 
     fetchAndDisplayMovies();
   }
+});
+
+// Arrow button to skip to the 10th pagination link
+prevButton.addEventListener('click', function () {
+  if (currentPage > 10) {
+    currentPage -= 9; 
+  } else {
+    currentPage = 1; 
+  }
+  fetchAndDisplayMovies();
+});
+
+nextButton.addEventListener('click', function () {
+  if (currentPage + 9 <= totalPages) {
+    currentPage += 9;
+  } else {
+    currentPage = totalPages;
+  }
+  fetchAndDisplayMovies();
 });
 
 window.addEventListener('DOMContentLoaded', fetchAndDisplayMovies);
