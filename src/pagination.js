@@ -10,21 +10,16 @@ let totalPages = 20;
 let currentPage = 1;
 const pageSize = 50;
 
-
-async function fetchGenreData() {
+async function fetchGenres() {
   try {
-    const response = await fetch(
-      `${apiUrl}/genre/movie/list?language=en-US&api_key=${apiKey}`
+    const res = await fetch(
+      `https://api.themoviedb.org/3/genre/movie/list?api_key=${key}`
     );
-    const data = await response.json();
-    console.log(data);
-    genreMap = {};
-    data.genres.forEach(genre => {
-      genreMap[genre.id] = genre.name;
-    });
-    fetchMovieData(1);
+    const data = await res.json();
+    return data.genres;
   } catch (error) {
-    console.error('Error fetching genre data:', error);
+    console.error('Error fetching genres:', error);
+    throw error;
   }
 }
 
@@ -33,17 +28,8 @@ async function fetchMoviesByPage(page, pageSize) {
     const res = await fetch(
       `${BASE_URL}/trending/movie/day?api_key=${key}&language=${language}&page=${page}&page_size=${pageSize}`
     );
-    const data = await response.json();
-    movieData = data.results.map(movie => ({
-      title: movie.title,
-      poster_path: movie.poster_path,
-      genre: movie.genre_ids.map(id => genreMap[id]),
-      year: movie.release_date
-        ? new Date(movie.release_date).getFullYear()
-        : 'N/A',
-    }));
-    displayList(movieData, list, itemsPerPage, 1);
-    setupPagination(movieData, paginationLinksWrapper, itemsPerPage);
+    const data = await res.json();
+    return data;
   } catch (error) {
     console.error(`Error fetching movies for page ${page}:`, error);
     throw error;
@@ -56,7 +42,7 @@ async function fetchAndDisplayMovies() {
       currentPage,
       currentPage === 1 ? 20 : pageSize
     );
-    totalPages = moviesData.total_pages; // Update total pages based on API response
+    totalPages = moviesData.total_pages;
     createCards(moviesData.results);
     generatePaginationLinks();
   } catch (error) {
@@ -120,66 +106,21 @@ async function createCards(movies) {
 
 function generatePaginationLinks() {
   paginationContainer.innerHTML = '';
-  const startPage = Math.max(1, Math.min(currentPage - 4, totalPages - 9)); // Adjusted start page logic
-  const endPage = Math.min(startPage + 9, totalPages);
+  let startPage, endPage;
+
+  if (currentPage % 10 === 1) {
+    startPage = currentPage;
+    endPage = Math.min(currentPage + 9, totalPages);
+  } else {
+    startPage = Math.floor((currentPage - 1) / 10) * 10 + 1;
+    endPage = Math.min(startPage + 9, totalPages);
+  }
 
   for (let i = startPage; i <= endPage; i++) {
-    console.error('Error fetching movie data:', error);
-  }
-}
+    const link = document.createElement('a');
+    link.href = '#';
+    link.textContent = i;
 
-function displayList(items, wrapper, itemsPerPage, page) {
-  wrapper.innerHTML = '';
-  page--;
-
-  const start = itemsPerPage * page;
-  const end = start + itemsPerPage;
-  const paginatedItems = items.slice(start, end);
-
-  for (let i = 0; i < paginatedItems.length; i++) {
-    const item = paginatedItems[i];
-    const li = document.createElement('li');
-
-    const img = document.createElement('img');
-    img.src = imageBaseUrl + item.poster_path;
-    img.alt = item.title;
-    img.style.borderRadius = '5px';
-    li.appendChild(img);
-
-    const titleDiv = document.createElement('div');
-    titleDiv.textContent = item.title;
-    li.appendChild(titleDiv);
-
-    const flexContainer = document.createElement('div');
-    flexContainer.style.display = 'flex';
-
-    const genreDiv = document.createElement('div');
-    genreDiv.textContent = item.genre.join(', ');
-    genreDiv.style.color = '#ff6b08';
-    flexContainer.appendChild(genreDiv);
-
-    const pipeSpan = document.createElement('span');
-    pipeSpan.textContent = ' | ';
-    pipeSpan.style.color = '#ff6b08';
-    flexContainer.appendChild(pipeSpan);
-
-    const yearDiv = document.createElement('div');
-    yearDiv.textContent = item.year;
-    yearDiv.style.color = '#ff6b08';
-    flexContainer.appendChild(yearDiv);
-
-    li.appendChild(flexContainer);
-
-    wrapper.appendChild(li);
-  }
-}
-
-function setupPagination(items, wrapper, itemsPerPage) {
-  wrapper.innerHTML = '';
-
-  const pageCount = Math.ceil(items.length / itemsPerPage);
-
-  for (let i = 1; i <= pageCount; i++) {
     if (i === currentPage) {
       link.classList.add('active');
     }
@@ -195,7 +136,7 @@ function setupPagination(items, wrapper, itemsPerPage) {
 
 prevButton.addEventListener('click', function () {
   if (currentPage > 10) {
-    currentPage -= 10; // Decrease by 10 to skip to the previous group of ten
+    currentPage -= 10;
   } else {
     currentPage = 1;
   }
@@ -204,9 +145,9 @@ prevButton.addEventListener('click', function () {
 
 nextButton.addEventListener('click', function () {
   if (currentPage + 10 <= totalPages) {
-    currentPage += 10; // Increase by 10 to skip to the next group of ten
+    currentPage += 10;
   } else {
-    currentPage = totalPages;
+    currentPage = 1;
   }
   fetchAndDisplayMovies();
 });
@@ -220,12 +161,13 @@ function localSetter() {
   if (watchlist === null || watchlist.length === 0) {
     localStorage.setItem('watchList', '[]');
   }
-  if (queuelist === null || watchlist.length === 0) {
+  if (queuelist === null || queuelist.length === 0) {
     localStorage.setItem('queueList', '[]');
   }
 }
 
 localSetter();
 
-// Ensure active class on the first link when page loads
 generatePaginationLinks();
+
+paginationContainer.insertBefore(paginationContainer.children[9], null);
