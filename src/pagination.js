@@ -10,16 +10,21 @@ let totalPages = 20;
 let currentPage = 1;
 const pageSize = 50;
 
-async function fetchGenres() {
+
+async function fetchGenreData() {
   try {
-    const res = await fetch(
-      `https://api.themoviedb.org/3/genre/movie/list?api_key=${key}`
+    const response = await fetch(
+      `${apiUrl}/genre/movie/list?language=en-US&api_key=${apiKey}`
     );
-    const data = await res.json();
-    return data.genres;
+    const data = await response.json();
+    console.log(data);
+    genreMap = {};
+    data.genres.forEach(genre => {
+      genreMap[genre.id] = genre.name;
+    });
+    fetchMovieData(1);
   } catch (error) {
-    console.error('Error fetching genres:', error);
-    throw error;
+    console.error('Error fetching genre data:', error);
   }
 }
 
@@ -28,8 +33,17 @@ async function fetchMoviesByPage(page, pageSize) {
     const res = await fetch(
       `${BASE_URL}/trending/movie/day?api_key=${key}&language=${language}&page=${page}&page_size=${pageSize}`
     );
-    const data = await res.json();
-    return data;
+    const data = await response.json();
+    movieData = data.results.map(movie => ({
+      title: movie.title,
+      poster_path: movie.poster_path,
+      genre: movie.genre_ids.map(id => genreMap[id]),
+      year: movie.release_date
+        ? new Date(movie.release_date).getFullYear()
+        : 'N/A',
+    }));
+    displayList(movieData, list, itemsPerPage, 1);
+    setupPagination(movieData, paginationLinksWrapper, itemsPerPage);
   } catch (error) {
     console.error(`Error fetching movies for page ${page}:`, error);
     throw error;
@@ -110,10 +124,62 @@ function generatePaginationLinks() {
   const endPage = Math.min(startPage + 9, totalPages);
 
   for (let i = startPage; i <= endPage; i++) {
-    const link = document.createElement('a');
-    link.href = '#';
-    link.textContent = i;
+    console.error('Error fetching movie data:', error);
+  }
+}
 
+function displayList(items, wrapper, itemsPerPage, page) {
+  wrapper.innerHTML = '';
+  page--;
+
+  const start = itemsPerPage * page;
+  const end = start + itemsPerPage;
+  const paginatedItems = items.slice(start, end);
+
+  for (let i = 0; i < paginatedItems.length; i++) {
+    const item = paginatedItems[i];
+    const li = document.createElement('li');
+
+    const img = document.createElement('img');
+    img.src = imageBaseUrl + item.poster_path;
+    img.alt = item.title;
+    img.style.borderRadius = '5px';
+    li.appendChild(img);
+
+    const titleDiv = document.createElement('div');
+    titleDiv.textContent = item.title;
+    li.appendChild(titleDiv);
+
+    const flexContainer = document.createElement('div');
+    flexContainer.style.display = 'flex';
+
+    const genreDiv = document.createElement('div');
+    genreDiv.textContent = item.genre.join(', ');
+    genreDiv.style.color = '#ff6b08';
+    flexContainer.appendChild(genreDiv);
+
+    const pipeSpan = document.createElement('span');
+    pipeSpan.textContent = ' | ';
+    pipeSpan.style.color = '#ff6b08';
+    flexContainer.appendChild(pipeSpan);
+
+    const yearDiv = document.createElement('div');
+    yearDiv.textContent = item.year;
+    yearDiv.style.color = '#ff6b08';
+    flexContainer.appendChild(yearDiv);
+
+    li.appendChild(flexContainer);
+
+    wrapper.appendChild(li);
+  }
+}
+
+function setupPagination(items, wrapper, itemsPerPage) {
+  wrapper.innerHTML = '';
+
+  const pageCount = Math.ceil(items.length / itemsPerPage);
+
+  for (let i = 1; i <= pageCount; i++) {
     if (i === currentPage) {
       link.classList.add('active');
     }
