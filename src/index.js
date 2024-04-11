@@ -64,11 +64,12 @@ export function createCards(movies, boolean) {
       }) => {
         let moviesEl = "";
         loaderEl.classList.remove("is-hidden");
+        let poster_link = `https://image.tmdb.org/t/p/w500/${poster_path}`;
+        poster_path === null ? poster_link = "https://fakeimg.pl/300x450?text=Movie%20Image" : poster_link;
+
         if (boolean === true) {
-          let poster_link = `https://image.tmdb.org/t/p/w500/${poster_path}`;
           let genres = await getGenres(genre_ids);
           let year = release_date.split('-');
-          poster_path === null ? poster_link = "https://fakeimg.pl/300x450?text=Movie%20Image" : poster_link;
           
           moviesEl = `
                   <li class="movie-item" data-id=${id}>
