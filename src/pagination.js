@@ -6,9 +6,9 @@ const paginationContainer = document.getElementById('pagination-links');
 const prevButton = document.getElementById('prev');
 const nextButton = document.getElementById('next');
 
-let totalPages = 20; 
+let totalPages = 20;
 let currentPage = 1;
-const pageSize = 50; 
+const pageSize = 50;
 
 async function fetchGenres() {
   try {
@@ -38,7 +38,10 @@ async function fetchMoviesByPage(page, pageSize) {
 
 async function fetchAndDisplayMovies() {
   try {
-    const moviesData = await fetchMoviesByPage(currentPage, pageSize);
+    const moviesData = await fetchMoviesByPage(
+      currentPage,
+      currentPage === 1 ? 20 : pageSize
+    );
     totalPages = moviesData.total_pages; // Update total pages based on API response
     createCards(moviesData.results);
     generatePaginationLinks();
@@ -61,7 +64,7 @@ async function getGenres(genre_ids) {
 }
 
 async function createCards(movies) {
-  movieGalleryEl.innerHTML = ''; 
+  movieGalleryEl.innerHTML = '';
   for (const movie of movies) {
     const {
       id,
@@ -102,8 +105,8 @@ async function createCards(movies) {
 }
 
 function generatePaginationLinks() {
-  paginationContainer.innerHTML = ''; 
-  const startPage = Math.max(1, currentPage - 5);
+  paginationContainer.innerHTML = '';
+  const startPage = Math.max(1, Math.min(currentPage - 4, totalPages - 9)); // Adjusted start page logic
   const endPage = Math.min(startPage + 9, totalPages);
 
   for (let i = startPage; i <= endPage; i++) {
@@ -112,7 +115,7 @@ function generatePaginationLinks() {
     link.textContent = i;
 
     if (i === currentPage) {
-      link.classList.add('active'); 
+      link.classList.add('active');
     }
 
     link.addEventListener('click', function (event) {
@@ -125,32 +128,17 @@ function generatePaginationLinks() {
 }
 
 prevButton.addEventListener('click', function () {
-  if (currentPage > 1) {
-    currentPage--; 
-    fetchAndDisplayMovies();
-  }
-});
-
-nextButton.addEventListener('click', function () {
-  if (currentPage < totalPages) {
-    currentPage++; 
-    fetchAndDisplayMovies();
-  }
-});
-
-// Arrow button to skip to the 10th pagination link
-prevButton.addEventListener('click', function () {
   if (currentPage > 10) {
-    currentPage -= 9; 
+    currentPage -= 10; // Decrease by 10 to skip to the previous group of ten
   } else {
-    currentPage = 1; 
+    currentPage = 1;
   }
   fetchAndDisplayMovies();
 });
 
 nextButton.addEventListener('click', function () {
-  if (currentPage + 9 <= totalPages) {
-    currentPage += 9;
+  if (currentPage + 10 <= totalPages) {
+    currentPage += 10; // Increase by 10 to skip to the next group of ten
   } else {
     currentPage = totalPages;
   }
@@ -172,3 +160,6 @@ function localSetter() {
 }
 
 localSetter();
+
+// Ensure active class on the first link when page loads
+generatePaginationLinks();
