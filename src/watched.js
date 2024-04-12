@@ -11,7 +11,6 @@ function updateLists() {
 }
 
 // Function to render the appropriate list based on button click
-// Function to render the appropriate list based on button click
 function renderList(listType,library_type) {
     movieGalleryEl.innerHTML = ""; // Clear the gallery
 
@@ -31,7 +30,7 @@ movieCon.addEventListener("click", movieClicked)
 document.querySelector('.nav-item:nth-child(2) .nav-link').addEventListener('click', function(event) {
     event.preventDefault(); // Prevent default link behavior
 
-    const watchedButton = document.querySelector('.ml-buttons .ml-button:first-child');
+    const watchedButton = document.querySelector('.ml-buttons .ml-button:nth-child(1)');
     // Check if the watched button exists before trying to click it
     if (watchedButton) {
         watchedButton.classList.add('active');
@@ -49,7 +48,7 @@ function onClick(e) {
             renderList(watchList,"WATCHED"); // Render the watchlist
             // Update button active state
             document.querySelector('.ml-buttons .ml-button:nth-child(1)').classList.add('active');
-            document.querySelector('.ml-buttons .ml-button:nth-child(2)').classList.remove('active');
+            document.querySelector('.ml-buttons .ml-button:nth-child(1)').classList.click();
         }
 
         if (e.target.innerText === "QUEUE") {
