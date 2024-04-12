@@ -76,6 +76,12 @@ footer .modal-content-footer {
     height: auto;
     border-radius: 50%;
     margin: auto;
+
+@media screen and (max-width: 370px) {
+        display: block;
+        width: 50%;
+    }
+
 }
 
 .team-member h3 {
@@ -120,5 +126,37 @@ footer .modal-content-footer {
 
 
 
+.prev {
+    position: relative;
+    top: 120px;
+    left: 20px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 35px;
+    transition: color 0.3s;
+    /* Adding transition for smooth color change */
+}
 
+.next {
+    position: relative;
+    top: 120px;
+    right: -500px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 35px;
+    transition: color 0.3s;
+    /* Adding transition for smooth color change */
+}
 
+.prev:hover,
+.next:hover {
+    color: blue;
+    /* Change the color to blue on hover */
+}
+
+.team-member a img {
+    width: 30px;
+    /* Adjust size as needed */
+    height: auto;
+    margin-top: 10px;
+}
