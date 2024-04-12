@@ -16,7 +16,6 @@ function navigation(e) {
         navFormEl.classList.remove("is-hidden");
         if (mlButtonsEl.length > 0) mlButtonsEl[0].remove();
         headerEl.removeAttribute("class");
-        movieGalleryEl.innerHTML = "";
         displayMovies();
     }
     
@@ -27,7 +26,6 @@ function navigation(e) {
             navFormEl.classList.remove("is-hidden");
             headerEl.removeAttribute("class");
             displayMovies();
-            movieGalleryEl.innerHTML = "";
         } else {
             navFormEl.classList.add("is-hidden");
             if (mlButtonsEl.length <= 0) createButtons();

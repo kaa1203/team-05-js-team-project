@@ -13,7 +13,6 @@ async function fetchGenres() {
   return data.genres;
 }
 
-// fetch trending movies
 export async function fetchTrending() {
   const res = await fetch(
     `${BASE_URL}/trending/movie/day?api_key=${key}&language=${language}&page=${page}`
@@ -62,6 +61,7 @@ export function createCards(movies, boolean) {
         vote_average,
         vote_count,
       }) => {
+        movieGalleryEl.innerHTML = "";
         let moviesEl = "";
         loaderEl.classList.remove("is-hidden");
         let poster_link = `https://image.tmdb.org/t/p/w500/${poster_path}`;

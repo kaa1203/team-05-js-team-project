@@ -37,6 +37,7 @@
 .close-animation {
     animation-name: scalesDown;
     animation-duration: 500ms;
+    pointer-events: none;
 }
 
 .modal-image img{
