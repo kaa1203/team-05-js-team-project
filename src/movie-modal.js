@@ -14,10 +14,10 @@ export function movieClicked(e) {
             about: e.target.alt,
             originalTitle: e.target.nextElementSibling.children[0].dataset.title,
             title: e.target.nextElementSibling.children[0].innerText,
-            genre: e.target.nextElementSibling.children[0].nextElementSibling.innerText,
-            release_date: e.target.nextElementSibling.children[0].nextElementSibling.nextElementSibling.dataset.year,
-            vote: e.target.nextElementSibling.children[0].nextElementSibling.nextElementSibling.nextElementSibling.innerText,
-            voteCount: e.target.nextElementSibling.children[0].nextElementSibling.nextElementSibling.nextElementSibling.dataset.count,
+            genre_ids: e.target.nextElementSibling.children[0].nextElementSibling.children[0].dataset.genre,
+            release_date: e.target.nextElementSibling.children[0].nextElementSibling.children[0].children[0].dataset.year,
+            vote: e.target.nextElementSibling.children[0].nextElementSibling.children[1].innerText,
+            voteCount: e.target.nextElementSibling.children[0].nextElementSibling.children[1].dataset.count,
         }
         
         let overlay = document.createElement("div");
@@ -36,7 +36,8 @@ function createModal(movieDetails) {
         about,
         originalTitle,
         title,
-        genre,
+        release_date,
+        genre_ids,
         vote,
         voteCount } = movieDetails;
     let modal = `
@@ -46,7 +47,7 @@ function createModal(movieDetails) {
                 <div class="modal-image">
                     <img src="${backdropImage}" alt="movie photo">
                 </div>
-                <div class="modal-details">
+                <div class="modal-details" data-year="${release_date}">
                     <ul class="modal-list">
                         <li class="modal-item">
                             <h1 class="movie-title">${title.toUpperCase()}</h1>
@@ -65,7 +66,7 @@ function createModal(movieDetails) {
                         </li>
                         <li class="modal-item">
                             <p class="modal-header">genre</p>    
-                            <p>${genre}</p>
+                            <p>${genre_ids}</p>
                         </li>
                     </ul>
                     <div class="modal-about">
@@ -81,6 +82,7 @@ function createModal(movieDetails) {
         </div>
     `;
     overlay[0].insertAdjacentHTML("beforeend", modal);
+    //should've passed the movieDetails to a function here
 } 
 
 function onClick(e) {
@@ -89,13 +91,14 @@ function onClick(e) {
     }
 
     if (e.target.classList.contains("modal-button")) {
-        // will be back to this later once i find a much better approach to this
+        // will change this later... or not.
         let votes = e.target.parentElement.previousElementSibling.previousElementSibling.children[1].children[1].innerText;
         votes = votes.split("/");
 
         const movieData = {
             id: e.target.parentElement.previousElementSibling.previousElementSibling.parentElement.parentElement.dataset.id,
             poster_path: e.target.parentElement.previousElementSibling.previousElementSibling.parentElement.previousElementSibling.children[0].src,
+            release_date: e.target.parentElement.previousElementSibling.previousElementSibling.parentElement.previousElementSibling.nextElementSibling.dataset.year,
             title: e.target.parentElement.previousElementSibling.previousElementSibling.children[0].children[0].innerText,
             vote_average: votes[0],
             vote_count: votes[1],
@@ -200,8 +203,8 @@ function removeFromList(movieId, list) {
 }
 
 function closeModal() {
-    overlay[0].children[0].classList.add("close");
-    
+    overlay[0].children[0].classList.add("close-animation");
+
     setTimeout(() => {
         overlay[0].remove();
     }, 1400);
@@ -215,5 +218,6 @@ function triggerActiveButtonClick() {
         activeButton.click(); // Trigger click event on the active button
     }
 }
+
 
 
