@@ -34,7 +34,7 @@
 
 .pagination-links a:hover:not(.active) {
   background-color: var(--orange);
-  transition: background-color 1.3s ease;
+  transition: background-color 0.5s ease;
 }
 
 #pagination-links a.active {
