@@ -47,6 +47,7 @@ export function displayMovies() {
 
 // Function that creates Cards has two parameters data and boolean, true if the data came from api, false if it were fetched from local storage
 export function createCards(movies, boolean) {
+  movieGalleryEl.innerHTML = "";
   movies
     .map(
       async ({
@@ -114,7 +115,6 @@ export function createCards(movies, boolean) {
               `;
         }
 
-        movieGalleryEl.innerHTML = "";
         setTimeout(() => { 
           loaderEl.classList.add("is-hidden");
           movieGalleryEl.insertAdjacentHTML('afterbegin', moviesEl);

@@ -27,19 +27,19 @@ document.addEventListener("click", onClick);
 movieCon.addEventListener("click", movieClicked)
 
 // Event listener function for "My Library" link
-document.querySelector('.nav-item:nth-child(2) .nav-link').addEventListener('click', function(event) {
-    event.preventDefault(); // Prevent default link behavior
+// document.querySelector('.nav-item:nth-child(2) .nav-link').addEventListener('click', function(event) {
+//     event.preventDefault(); // Prevent default link behavior
 
-    const watchedButton = document.querySelector('.ml-buttons .ml-button:nth-child(1)');
-    // Check if the watched button exists before trying to click it
-    if (watchedButton) {
-        watchedButton.classList.add('active');
-        watchedButton.click(); 
-        watchedButton.focus(); 
-    } else {
-        console.error("Watched button not found"); // Log an error if the button is not found
-    }
-});
+//     // const watchedButton = document.querySelector('.ml-buttons .ml-button:nth-child(1)');
+//     // // Check if the watched button exists before trying to click it
+//     // if (watchedButton) {
+//     //     // watchedButton.classList.add('active');
+//     //     watchedButton.click(); 
+//     //     watchedButton.focus(); 
+//     // } else {
+//     //     console.error("Watched button not found"); // Log an error if the button is not found
+//     // }
+// });
 
 function onClick(e) {
     if (e.target.tagName === "BUTTON") {

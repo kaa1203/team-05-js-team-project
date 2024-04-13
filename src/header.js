@@ -18,7 +18,6 @@ function navigation(e) {
         headerEl.removeAttribute("class");
         displayMovies();
     }
-    
 
     if (e.target.tagName === "A") {
         if (e.target.innerText === "HOME") {
@@ -36,6 +35,7 @@ function navigation(e) {
     if (headerEl.classList.contains("library")) {
         home.classList.remove("active");
         lib.classList.add("active");
+        mlButtonsEl[0].children[0].classList.add("active");
     } else {
         lib.classList.remove("active");
         home.classList.add("active");

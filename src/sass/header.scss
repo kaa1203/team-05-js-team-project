@@ -61,6 +61,10 @@ header {
     background-color: var(--orange);
 }
 
+.preload {
+    display: none;
+}
+
 .nav-form {
     display: flex;
     justify-content: center;
@@ -130,7 +134,7 @@ header {
 }
 
 .ml-button:hover,
-.ml-button.active:hover
+.ml-button.active,
 .ml-button:active,
 .ml-button:focus {
     cursor: pointer;
