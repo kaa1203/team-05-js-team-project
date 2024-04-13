@@ -48,7 +48,7 @@ function onClick(e) {
             renderList(watchList,"WATCHED"); // Render the watchlist
             // Update button active state
             document.querySelector('.ml-buttons .ml-button:nth-child(1)').classList.add('active');
-            document.querySelector('.ml-buttons .ml-button:nth-child(1)').classList.click();
+            document.querySelector('.ml-buttons .ml-button:nth-child(2)').classList.remove('active');
         }
 
         if (e.target.innerText === "QUEUE") {
