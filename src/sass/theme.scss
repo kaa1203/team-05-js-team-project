@@ -123,7 +123,6 @@ input:checked ~ .switch-theme__slider::before {
     }
 }
 
-
 .footermodal {
     &[data-theme="light"] {
         color: var(--white);
@@ -158,5 +157,62 @@ input:checked ~ .switch-theme__slider::before {
     }
 }
 
+// -------------------------------------------MOVIE-SECTION AND MODAL ---------------------------------------------------------
 
+.section {
+    &[data-theme="dark"]{
+        background-color: #191a19;
+        border-top: 1px solid var(--orange);
+        box-shadow: 0 0 14px 13px rgba(255,107,1,.425);
+        animation: waveGlow 1.5s infinite alternate;
+    }
+}
+//     @keyframes waveGlow {
+//         0% {
+//             border-top-color: var(--orange);
+//             box-shadow: 0 0 7px 7px rgba(255,107,0,.425);
+//             border-bottom: 0;
+//         }
+//         100% {
+//             border-top-color: var(--orange);
+//             box-shadow: 0 0 7px 7px rgba(255,107,0,.625);
+//             border-bottom: 0;
+//         }
+//     }
 
+.movie-title {
+    &[data-theme="dark"]{
+        color: var(--white);
+    }
+}
+.modal-container {
+    &[data-theme="dark"]{
+        background-color: #191a19;
+        color: var(--white);
+    }
+}
+.modal-header{
+&[data-theme="dark"]{
+    // color: var(--dark-grey);
+    color: var(--white);
+}
+}
+.modal-button {
+    &[data-theme="dark"]{
+        background-color: var(--white);
+        color: black;
+        &:hover,
+        &:focus {
+            outline: none;
+            border: 1px solid black;
+        }
+    }
+}
+// -------------------------------------------PAGINATION SECTION ---------------------------------------------------------
+
+// .pagination-container {
+//     &[data-theme="dark"]{
+//         background-color: #191a19;
+// // //         // border-top: 1px solid var(--orange);
+//     }
+// }
