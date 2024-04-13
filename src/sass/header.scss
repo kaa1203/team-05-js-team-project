@@ -77,6 +77,18 @@ header {
     color: var(--white);
 }
 
+.del-input {
+    content: "\00d7";
+    display: block;
+    position: absolute;
+    top: 135px;
+    right: 36.5%;
+    font-size: 20px;
+    font-weight: 300;
+    color: white;
+    cursor: pointer;
+}
+
 .nav-input:focus,
 .nav-button:focus {
     outline: none;

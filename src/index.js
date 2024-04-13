@@ -61,16 +61,22 @@ export function createCards(movies, boolean) {
         vote_average,
         vote_count,
       }) => {
-        movieGalleryEl.innerHTML = "";
         let moviesEl = "";
-        loaderEl.classList.remove("is-hidden");
         let poster_link = `https://image.tmdb.org/t/p/w500/${poster_path}`;
+        
+        loaderEl.classList.remove("is-hidden");
+
         poster_path === null ? poster_link = "https://fakeimg.pl/300x450?text=Movie%20Image" : poster_link;
 
         if (boolean === true) {
-          let genres = await getGenres(genre_ids);
+          let genres;
           let year = release_date.split('-');
-          
+
+          overview === "" ? overview = "N/A" : overview;
+          if (genre_ids.length === 0) return genres = "N/A";
+          genres = await getGenres(genre_ids);
+          genres = genres.join(", ");
+
           moviesEl = `
                   <li class="movie-item" data-id=${id}>
                       <a href="${poster_link}" class="movie-link">
@@ -79,7 +85,7 @@ export function createCards(movies, boolean) {
                               <div class="movie-details-wrapper">
                                   <p class="movie-title" data-title="${original_title}">${title}</p>
                                   <div class="movie-details">
-                                    <p data-genre="${genres.join(", ")}">${genres.join(", ")} | <span data-year="${year[0]}">${year[0]}</span>
+                                    <p data-genre="${genres}">${genres} | <span data-year="${year[0]}">${year[0]}</span>
                                     </p>
                                     <p class="movie-rating" data-count="${vote_count}">${vote_average.toFixed(1)}</p>
                                   </div>
@@ -108,8 +114,9 @@ export function createCards(movies, boolean) {
               `;
         }
 
+        movieGalleryEl.innerHTML = "";
         setTimeout(() => { 
-          loaderEl.classList.add("is-hidden")
+          loaderEl.classList.add("is-hidden");
           movieGalleryEl.insertAdjacentHTML('afterbegin', moviesEl);
         }, 700);
   
