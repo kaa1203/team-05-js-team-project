@@ -36,9 +36,6 @@ const checkbox = document.getElementById('switch');
             .forEach(el => el.setAttribute('data-theme', 'dark'));
     }
     document.querySelector('.modal-content-footer').setAttribute('data-theme', 'dark');
-    document.querySelectorAll('.modal-container').forEach(el => el.setAttribute('data-theme', 'dark'));
-    document.querySelectorAll('.modal-header').forEach(el => el.setAttribute('data-theme', 'dark'));
-
     
 
     const changeThemeToLight = () => {
@@ -84,22 +81,3 @@ const checkbox = document.getElementById('switch');
         modalContentFooter.setAttribute('data-theme', theme);
     }
 }
-
-
-function applyTheme(theme) {
-    document.body.setAttribute('data-theme', theme);
-    localStorage.setItem('data-theme', theme);
-
-    // Apply theme to modal container
-    const modalContainers = document.querySelectorAll('.modal-container');
-    modalContainers.forEach(container => {
-        container.setAttribute('data-theme', theme);
-    });
-
-    // Apply theme to modal header
-    const modalHeaders = document.querySelectorAll('.modal-header');
-    modalHeaders.forEach(header => {
-        header.setAttribute('data-theme', theme);
-    });
-}
-
