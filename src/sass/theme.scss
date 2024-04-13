@@ -158,5 +158,20 @@ input:checked ~ .switch-theme__slider::before {
     }
 }
 
+// -------------------------------------------MOVIE-MODAL SECTION ---------------------------------------------------------
 
-
+.modal-container {
+    // &[data-theme="light"]{
+    //     background-color: white;
+    // }
+&[data-theme="dark"]{
+    // background-color: #545454;
+    background-color: #191a19;
+    color: #fff;;
+}
+}
+.modal-header {
+    &[data-theme="dark"]{
+        color:var(--dark-grey);
+    }
+}
