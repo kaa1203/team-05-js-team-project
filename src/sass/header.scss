@@ -129,9 +129,13 @@ header {
     color: var(--white);
 }
 
-.ml-button:hover {
+.ml-button:hover,
+.ml-button.active:hover
+.ml-button:active,
+.ml-button:focus {
     cursor: pointer;
     background-color: var(--orange);
     box-shadow: 0 0 15px 4px var(--orange);
     border: 1px solid transparent;
 }
+
