@@ -1,21 +1,21 @@
-/* CSS */
+/* Common styles */
 #container {
   max-width: 600px;
-  margin: 0 auto; /* Center the container horizontally */
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center the content vertically */
+  align-items: center;
 }
 
 .pagination-container {
   display: flex;
-  justify-content: space-between; /* Align items with space between them */
+  justify-content: space-between;
   align-items: center;
 }
 
 .pagination-arrow {
   padding: 5px 10px;
-  margin: 0 2px; /* Adjust margin for spacing between arrows and links */
+  margin: 0 2px;
   background-color: transparent;
   cursor: pointer;
 }
@@ -43,12 +43,6 @@
   color: var(--white);
 }
 
-#prev,
-#next {
-  margin: 0 10px;
-  cursor: pointer;
-}
-
 .ellipsis {
   margin: 20px;
 }
@@ -71,4 +65,29 @@
 #pagination-links a.active {
   background-color: var(--orange);
   color: var(--white);
+}
+
+/* Media Queries */
+
+@media only screen and (max-width: 320px) {
+  #container {
+    max-width: 300px;
+  }
+  .ellipsis{
+  display: none;
+}
+}
+
+
+
+@media only screen and (min-width: 321px) and (max-width: 768px) {
+  #container {
+    max-width: 600px;
+  }
+}
+
+@media only screen and (min-width: 769px) {
+  #container {
+    max-width: 800px;
+  }
 }

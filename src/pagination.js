@@ -170,4 +170,4 @@ localSetter();
 
 generatePaginationLinks();
 
-paginationContainer.insertBefore(paginationContainer.children[9], null);
+// paginationContainer.insertBefore(paginationContainer.children[9], null);
