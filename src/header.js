@@ -1,4 +1,5 @@
 import { displayMovies, movieGalleryEl } from "./index.js";
+import { createCards } from "./index.js";   
 
 const navEl = document.querySelector(".nav-bar");
 const navFormEl = document.querySelector(".nav-form");
@@ -36,6 +37,13 @@ function navigation(e) {
         home.classList.remove("active");
         lib.classList.add("active");
         mlButtonsEl[0].children[0].classList.add("active");
+        
+        let watchList = localStorage.getItem("watchList");
+        if (JSON.parse(watchList).length === 0) {
+            movieGalleryEl.innerText = "NO MOVIES ADDED TO WATCHED YET";
+            return;
+        }
+         createCards(JSON.parse(watchList), false);
     } else {
         lib.classList.remove("active");
         home.classList.add("active");
