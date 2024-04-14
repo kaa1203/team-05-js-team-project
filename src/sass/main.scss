@@ -1,3 +1,13 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure that the body takes up the full viewport height */
+}
+
+main {
+    flex: 1; /* Allow the main content to grow to fill the available space */
+}
+
 .movie-list {
     display: flex;
     flex-wrap: wrap;
