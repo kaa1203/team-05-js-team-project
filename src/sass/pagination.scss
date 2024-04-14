@@ -1,74 +1,93 @@
-/* CSS */
 #container {
-  max-width: 600px;
-  margin: 0 auto; /* Center the container horizontally */
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Center the content vertically */
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .pagination-container {
-  display: flex;
-  justify-content: space-between; /* Align items with space between them */
-  align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .pagination-arrow {
-  padding: 5px 10px;
-  margin: 0 2px; /* Adjust margin for spacing between arrows and links */
-  background-color: transparent;
-  cursor: pointer;
+    padding: 5px 10px;
+    margin: 0 2px;
+    background-color: transparent;
+    cursor: pointer;
 }
 
 .pagination-links {
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
 }
 
 .pagination-links a {
-  padding: 10px 15px;
-  margin: 0 5px;
-  background-color: transparent;
-  color: var(--black);
+    padding: 10px 15px;
+    margin: 0 5px;
+    background-color: transparent;
+    color: var(--black);
 }
 
 .pagination-links a:hover:not(.active) {
-  background-color: var(--orange);
-  transition: background-color 1.3s ease;
+    background-color: var(--orange);
+    transition: background-color 0.5s ease;
 }
 
 #pagination-links a.active {
-  border-radius: 5px;
-  background-color: var(--orange);
-  color: var(--white);
-}
-
-#prev,
-#next {
-  margin: 0 10px;
-  cursor: pointer;
+    border-radius: 5px;
+    background-color: var(--orange);
+    color: var(--white);
 }
 
 .ellipsis {
-  margin: 20px;
+    margin: 20px;
 }
 
 #pagination-links {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  justify-content: center;
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
 }
 
 #pagination-links a {
-  text-decoration: none;
-  color: var(--black);
-  margin: 0 5px;
-  padding: 10px 15px;
-  border-radius: 5px;
+    text-decoration: none;
+    color: var(--black);
+    margin: 0 5px;
+    padding: 10px 15px;
+    border-radius: 5px;
 }
 
 #pagination-links a.active {
-  background-color: var(--orange);
-  color: var(--white);
+    background-color: var(--orange);
+    color: var(--white);
+}
+
+/* Media Queries */
+
+@media only screen and (max-width: 768px) {
+    #container {
+        max-width: 600px;
+    }
+
+    .movie-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between; 
+    }
+
+    .movie-item {
+        width: calc(50% - 20px); 
+        box-sizing: border-box; 
+        padding: 10px; 
+    }
+}
+
+@media only screen and (min-width: 769px) {
+    #container {
+        max-width: 800px;
+    }
 }

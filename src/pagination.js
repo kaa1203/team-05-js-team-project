@@ -87,4 +87,3 @@ nextButton.addEventListener('click', function () {
 
 // document.addEventListener('DOMContentLoaded', fetchAndDisplayMovies);
 generatePaginationLinks();
-// paginationContainer.insertBefore(paginationContainer.children[9], null); 
