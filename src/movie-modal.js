@@ -81,8 +81,14 @@ function createModal(movieDetails) {
             </div>
         </div>
     `;
+
     overlay[0].insertAdjacentHTML("beforeend", modal);
-    //should've passed the movieDetails to a function here
+     //should've passed the movieDetails to a function here
+
+     // Apply Theme for Modal, still dont know how to get the modal-container class in the theme.js
+    applyModalTheme();
+
+
 } 
 
 function onClick(e) {
@@ -208,4 +214,36 @@ function closeModal() {
     setTimeout(() => {
         overlay[0].remove();
     }, 450);
+
+    // Call triggerActiveButtonClick() when the modal is closed
+    triggerActiveButtonClick();
 }
+
+function triggerActiveButtonClick() {
+    const activeButton = document.querySelector('.ml-buttons .ml-button.active');
+    if (activeButton) {
+        activeButton.click(); // Trigger click event on the active button
+    }
+}
+
+
+
+function applyModalTheme(){
+    const modalContainer = document.querySelector('.modal-container');
+    if (modalContainer) {
+        let theme = localStorage.getItem('data-theme'); 
+        if (theme == 'dark'){
+            modalContainer.setAttribute('data-theme', 'dark');
+            document.querySelectorAll('.modal-header').forEach(el => el.setAttribute('data-theme', 'dark'));
+            document.querySelectorAll('.modal-button').forEach(el => el.setAttribute('data-theme', 'dark'));
+        }
+        else
+        {
+            modalContainer.setAttribute('data-theme', 'light');
+            document.querySelectorAll('.modal-header').forEach(el => el.setAttribute('data-theme', 'light'));
+            document.querySelectorAll('.modal-button').forEach(el => el.setAttribute('data-theme', 'light'));
+            
+        }
+        }
+    }
+

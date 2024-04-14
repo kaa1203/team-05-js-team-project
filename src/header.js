@@ -1,4 +1,5 @@
 import { displayMovies, movieGalleryEl } from "./index.js";
+import { createCards } from "./index.js";   
 
 const navEl = document.querySelector(".nav-bar");
 const navFormEl = document.querySelector(".nav-form");
@@ -16,10 +17,8 @@ function navigation(e) {
         navFormEl.classList.remove("is-hidden");
         if (mlButtonsEl.length > 0) mlButtonsEl[0].remove();
         headerEl.removeAttribute("class");
-        movieGalleryEl.innerHTML = "";
         displayMovies();
     }
-    
 
     if (e.target.tagName === "A") {
         if (e.target.innerText === "HOME") {
@@ -27,7 +26,6 @@ function navigation(e) {
             navFormEl.classList.remove("is-hidden");
             headerEl.removeAttribute("class");
             displayMovies();
-            movieGalleryEl.innerHTML = "";
         } else {
             navFormEl.classList.add("is-hidden");
             if (mlButtonsEl.length <= 0) createButtons();
@@ -38,6 +36,14 @@ function navigation(e) {
     if (headerEl.classList.contains("library")) {
         home.classList.remove("active");
         lib.classList.add("active");
+        mlButtonsEl[0].children[0].classList.add("active");
+        
+        let watchList = localStorage.getItem("watchList");
+        if (JSON.parse(watchList).length === 0) {
+            movieGalleryEl.innerText = "NO MOVIES ADDED TO WATCHED YET";
+            return;
+        }
+         createCards(JSON.parse(watchList), false);
     } else {
         lib.classList.remove("active");
         home.classList.add("active");

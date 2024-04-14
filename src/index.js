@@ -13,7 +13,6 @@ async function fetchGenres() {
   return data.genres;
 }
 
-// fetch trending movies
 export async function fetchTrending() {
   const res = await fetch(
     `${BASE_URL}/trending/movie/day?api_key=${key}&language=${language}&page=${page}`
@@ -48,6 +47,7 @@ export function displayMovies() {
 
 // Function that creates Cards has two parameters data and boolean, true if the data came from api, false if it were fetched from local storage
 export function createCards(movies, boolean) {
+  movieGalleryEl.innerHTML = "";
   movies
     .map(
       async ({
@@ -63,14 +63,21 @@ export function createCards(movies, boolean) {
         vote_count,
       }) => {
         let moviesEl = "";
-        loaderEl.classList.remove("is-hidden");
         let poster_link = `https://image.tmdb.org/t/p/w500/${poster_path}`;
+        
+        loaderEl.classList.remove("is-hidden");
+
         poster_path === null ? poster_link = "https://fakeimg.pl/300x450?text=Movie%20Image" : poster_link;
 
         if (boolean === true) {
-          let genres = await getGenres(genre_ids);
+          let genres;
           let year = release_date.split('-');
-          
+
+          overview === "" ? overview = "N/A" : overview;
+          if (genre_ids.length === 0) return genres = "N/A";
+          genres = await getGenres(genre_ids);
+          genres = genres.join(", ");
+
           moviesEl = `
                   <li class="movie-item" data-id=${id}>
                       <a href="${poster_link}" class="movie-link">
@@ -79,7 +86,7 @@ export function createCards(movies, boolean) {
                               <div class="movie-details-wrapper">
                                   <p class="movie-title" data-title="${original_title}">${title}</p>
                                   <div class="movie-details">
-                                    <p data-genre="${genres.join(", ")}">${genres.join(", ")} | <span data-year="${year[0]}">${year[0]}</span>
+                                    <p data-genre="${genres}">${genres} | <span data-year="${year[0]}">${year[0]}</span>
                                     </p>
                                     <p class="movie-rating" data-count="${vote_count}">${vote_average.toFixed(1)}</p>
                                   </div>
@@ -109,7 +116,7 @@ export function createCards(movies, boolean) {
         }
 
         setTimeout(() => { 
-          loaderEl.classList.add("is-hidden")
+          loaderEl.classList.add("is-hidden");
           movieGalleryEl.insertAdjacentHTML('afterbegin', moviesEl);
         }, 700);
   

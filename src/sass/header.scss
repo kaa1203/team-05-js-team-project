@@ -61,6 +61,10 @@ header {
     background-color: var(--orange);
 }
 
+.preload {
+    display: none;
+}
+
 .nav-form {
     display: flex;
     justify-content: center;
@@ -75,6 +79,18 @@ header {
     border: none;
     border-bottom: 1px solid var(--white);
     color: var(--white);
+}
+
+.del-input {
+    content: "\00d7";
+    display: block;
+    position: absolute;
+    top: 135px;
+    right: 36.5%;
+    font-size: 20px;
+    font-weight: 300;
+    color: white;
+    cursor: pointer;
 }
 
 .nav-input:focus,
@@ -117,9 +133,13 @@ header {
     color: var(--white);
 }
 
-.ml-button:hover {
+.ml-button:hover,
+.ml-button.active,
+.ml-button:active,
+.ml-button:focus {
     cursor: pointer;
     background-color: var(--orange);
     box-shadow: 0 0 15px 4px var(--orange);
     border: 1px solid transparent;
 }
+
