@@ -23,7 +23,7 @@ async function fetchMoviesByPage(page, pageSize) {
   }
 }
 
-async function fetchAndDisplayMovies() {
+async function fetchAndDisplayMovies(screenSize) {
   try {
     const moviesData = await fetchMoviesByPage(
       currentPage,
@@ -31,22 +31,27 @@ async function fetchAndDisplayMovies() {
     );
     totalPages = moviesData.total_pages;
     createCards(moviesData.results, true);
-    generatePaginationLinks();
+    generatePaginationLinks(screenSize);
   } catch (error) {
     console.error('Error fetching or displaying movies:', error);
   }
 }
 
-function generatePaginationLinks() {
+let screenSize = window.innerWidth;
+
+
+function generatePaginationLinks(screenSize) {
   paginationContainer.innerHTML = '';
-  let startPage, endPage;
+  let startPage, endPage, appendPage;
+  
+  screenSize < 780 ? appendPage = 4 : appendPage = 9; 
 
   if (currentPage % 10 === 1) {
     startPage = currentPage;
-    endPage = Math.min(currentPage + 9, totalPages);
+    endPage = Math.min(currentPage + appendPage, totalPages);
   } else {
     startPage = Math.floor((currentPage - 1) / 10) * 10 + 1;
-    endPage = Math.min(startPage + 9, totalPages);
+    endPage = Math.min(startPage + appendPage, totalPages);
   }
   
   for (let i = startPage; i <= endPage; i++) {
@@ -61,7 +66,7 @@ function generatePaginationLinks() {
     link.addEventListener('click', function (event) {
       event.preventDefault();
       currentPage = parseInt(this.textContent);
-      fetchAndDisplayMovies();
+      fetchAndDisplayMovies(screenSize);
     });
     paginationContainer.appendChild(link);
   }
@@ -73,14 +78,13 @@ prevButton.addEventListener('click', function () {
   } else {
     currentPage -= 1;
   }
-  fetchAndDisplayMovies();
+  fetchAndDisplayMovies(screenSize);
 });
 
 nextButton.addEventListener('click', function () {
   currentPage += 1;
-  page = currentPage;
-  fetchAndDisplayMovies();
+  fetchAndDisplayMovies(screenSize);
 });
 
 // document.addEventListener('DOMContentLoaded', fetchAndDisplayMovies);
-generatePaginationLinks();
+generatePaginationLinks(screenSize);

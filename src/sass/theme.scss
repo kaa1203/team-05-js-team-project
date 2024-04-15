@@ -13,9 +13,9 @@
     border: 1px solid var(--white);
 
 
-// @media screen and (min-width: 768px) {
-//     // right: 32px;
-// }
+@media screen and (max-width: 767px) {
+    right: 20%;
+}
 
 &:hover,
 &:focus {
@@ -63,13 +63,7 @@ input:checked ~ .switch-theme__slider::before {
 // -------------------------------------------FOOTER AND MODAL SECTION ---------------------------------------------------------
 
 .footer[data-theme="light"] {
-    background-color: var(--white);
-    // height: 100%;
-    // border: 0;
-
-//     // @media screen and (min-width: 768px) {
-//     //     padding: 20px 0;
-//     // }    
+    background-color: #f7f7f7;  
 }
 
 .footer[data-theme="dark"] {
@@ -183,17 +177,6 @@ input:checked ~ .switch-theme__slider::before {
     background-color: var(--orange);
 }
 
-// .modal-button {
-//     &[data-theme="dark"]{
-//         background-color: var(--white);
-//         color: black;
-//         &:hover,
-//         &:focus {
-//             outline: none;
-//             background-color: var(--orange);    
-//         }
-//     }
-// }
 
 // -------------------------------------------MY LIBRARY MOVIE LIST ---------------------------------------------------------
 .movie-list {

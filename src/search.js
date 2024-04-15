@@ -23,8 +23,8 @@ async function searchMovies(e) {
         
         if (q.trim() !== "") {
             createCards(data.results, true);
-            // q = "";
             search_bar.value = "";
+            delInputEl.classList.add("is-hidden");
         }
     } catch (e) {
         console.log(e);

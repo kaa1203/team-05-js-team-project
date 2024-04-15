@@ -72,6 +72,23 @@
 }
 
 /* Media Queries */
+
+@media (max-width:779px) { 
+    .pagination-container {
+        margin-bottom: 10px;
+    }
+
+    .pagination-arrow {
+        padding: 0 5px;
+    }
+
+    #pagination-links a {
+        padding: 5px 8px;
+        
+    }
+}
+
+
 /* 
 commented to not override the media queries inside main.scss
 @media only screen and (max-width: 768px) {

@@ -34,8 +34,8 @@ function onClick(e) {
             updateLists(); // Update watchList and queueList
             renderList(watchList,"WATCHED"); // Render the watchlist
             // Update button active state
-            watchButton.disabled = true;
-            queueButton.disabled = false;
+            // watchButton.disabled = true;
+            // queueButton.disabled = false;
             watchButton.classList.add('active');
             queueButton.classList.remove('active');
         }
@@ -44,8 +44,8 @@ function onClick(e) {
             updateLists(); // Update watchList and queueList
             renderList(queueList,"QUEUE"); // Render the queuelist
             // Update button active state
-            queueButton.disabled = true;
-            watchButton.disabled = false;
+            // queueButton.disabled = true;
+            // watchButton.disabled = false;
             watchButton.classList.remove('active');
             queueButton.classList.add('active');
         }
