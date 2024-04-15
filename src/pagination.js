@@ -88,3 +88,13 @@ nextButton.addEventListener('click', function () {
 
 // document.addEventListener('DOMContentLoaded', fetchAndDisplayMovies);
 generatePaginationLinks(screenSize);
+
+window.addEventListener("resize", () => {
+    console.log(window.innerWidth);
+  if (screenSize === 767) {
+    generatePaginationLinks(window.innerWidth);
+  }
+  if (screenSize >= 767) {
+    generatePaginationLinks(window.innerWidth);
+  }
+})
