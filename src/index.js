@@ -29,7 +29,6 @@ async function fetchTrending() {
   return data;
 }
 
-// get the genre value from genre_ids
 async function getGenres(genre_ids) {
   try {
     let allGenres = await fetchGenres();
@@ -42,7 +41,6 @@ async function getGenres(genre_ids) {
   }
 }
 
-// Display the movies that were fetch and create movie cards
 export function displayMovies() {
   try {
     fetchTrending().then(val => {
@@ -53,7 +51,6 @@ export function displayMovies() {
   }
 }
 
-// Function that creates Cards has two parameters data and boolean, true if the data came from api, false if it were fetched from local storage
 export function createCards(movies, boolean) {
   movieGalleryEl.innerHTML = '';
   movies
@@ -170,7 +167,12 @@ async function fetchMoviesByPage(page, link = null) {
 
 async function fetchAndDisplayMovies() {
   try {
-    const moviesData = await fetchMoviesByPage(currentPage, fetchLink);
+    let moviesData;
+    if (fetchType === 'search') {
+      moviesData = await fetchMoviesBySearch(query);
+    } else {
+      moviesData = await fetchMoviesByPage(currentPage, fetchLink);
+    }
     totalPages = moviesData.total_pages;
     createCards(moviesData.results, true);
     generatePaginationLinks();
@@ -199,7 +201,7 @@ function generatePaginationLinks() {
     link.addEventListener('click', function (event) {
       event.preventDefault();
       currentPage = parseInt(this.textContent);
-      fetchAndDisplayMovies(); // No need to pass fetchLink here
+      fetchAndDisplayMovies();
     });
     paginationContainer.appendChild(link);
   }
@@ -212,13 +214,21 @@ prevButton.addEventListener('click', function () {
     currentPage -= 1;
   }
   page = currentPage;
-  fetchAndDisplayMovies();
+  if (fetchType === 'search') {
+    fetchAndDisplayMovies();
+  } else {
+    fetchAndDisplayMovies(fetchLink);
+  }
 });
 
 nextButton.addEventListener('click', function () {
   currentPage += 1;
   page = currentPage;
-  fetchAndDisplayMovies();
+  if (fetchType === 'search') {
+    fetchAndDisplayMovies();
+  } else {
+    fetchAndDisplayMovies(fetchLink);
+  }
 });
 
 // ========== SEARCH =========
@@ -232,11 +242,9 @@ function searchMovies(e) {
   e.preventDefault();
   const { search_bar } = e.target;
   query = search_bar.value;
-  let link = `${BASE_URL}/search/movie?api_key=${key}&language=${language}&query=${query}&include_adult=${include_adult}`;
-
   fetchType = 'search';
   currentPage = 1;
-  fetchAndDisplayMovies(link);
+  fetchAndDisplayMovies();
 }
 
 function onInput(e) {
