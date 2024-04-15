@@ -164,17 +164,22 @@ async function fetchMoviesByPage(page, link = null) {
     throw error;
   }
 }
-
+// Function to fetch and display movies
 async function fetchAndDisplayMovies() {
   try {
     let moviesData;
     if (fetchType === 'search') {
+      // If fetch type is search, fetch movies by search query
       moviesData = await fetchMoviesBySearch(query);
     } else {
+      // If not search, fetch movies by page
       moviesData = await fetchMoviesByPage(currentPage, fetchLink);
     }
+    // Update total pages based on fetched data
     totalPages = moviesData.total_pages;
+    // Create movie cards based on fetched results
     createCards(moviesData.results, true);
+    // Generate pagination links
     generatePaginationLinks();
   } catch (error) {
     console.error('Error fetching or displaying movies:', error);
