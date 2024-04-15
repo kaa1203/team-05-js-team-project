@@ -5,6 +5,7 @@ const navEl = document.querySelector(".nav-bar");
 const navFormEl = document.querySelector(".nav-form");
 const mlButtonsEl = document.getElementsByClassName("ml-buttons");
 const headerEl = document.querySelector("header");
+const paginationEl = document.getElementById("pagination")
 
 navEl.addEventListener("click", navigation);
 
@@ -17,6 +18,7 @@ function navigation(e) {
         navFormEl.classList.remove("is-hidden");
         if (mlButtonsEl.length > 0) mlButtonsEl[0].remove();
         headerEl.removeAttribute("class");
+        paginationEl.classList.remove("is-hidden");
         displayMovies();
     }
 
@@ -25,6 +27,7 @@ function navigation(e) {
             if (mlButtonsEl.length > 0) mlButtonsEl[0].remove()
             navFormEl.classList.remove("is-hidden");
             headerEl.removeAttribute("class");
+            paginationEl.classList.remove("is-hidden");
             displayMovies();
         } else {
             navFormEl.classList.add("is-hidden");
@@ -37,6 +40,7 @@ function navigation(e) {
         home.classList.remove("active");
         lib.classList.add("active");
         mlButtonsEl[0].children[0].classList.add("active");
+        paginationEl.classList.add("is-hidden");
         
         let watchList = localStorage.getItem("watchList");
         if (JSON.parse(watchList).length === 0) {
