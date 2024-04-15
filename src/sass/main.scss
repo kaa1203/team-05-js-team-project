@@ -2,7 +2,8 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 30px;
+    align-items: center;
+    gap: 20px;
 }
 
 .movie-item {
@@ -58,5 +59,29 @@
     }
     100% {
         transform: rotate(360deg);
+    }
+}
+
+@media (max-width:779px) { //mobile
+    main .container {
+        width: 320px;
+    }
+}
+
+@media (min-width: 780px) and (max-width: 1199px) { //tablet
+    main .container {
+        width: 780px;
+    }
+
+    main .movie-list {
+        gap: 10px;
+    }
+
+    main .movie-item {
+        width: calc(100% / 2 - 20px);
+    }
+
+    main .movie-item {
+        width: 300px;
     }
 }

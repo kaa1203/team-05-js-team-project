@@ -158,12 +158,12 @@ input:checked ~ .switch-theme__slider::before {
         color: var(--white);
     }
 }
-.modal-container {
-    &[data-theme="dark"]{
+[data-theme="dark"] .modal-container {
+    // &[data-theme="dark"]{
         background-color: #191a19;
         color: var(--white);
-        animation: waveGlow 1.5s infinite alternate;
-    }
+        // animation: waveGlow 1.5s infinite alternate;
+    // }
 }
 
 .modal-header{
@@ -171,17 +171,29 @@ input:checked ~ .switch-theme__slider::before {
     color: var(--white);
 }
 }
-.modal-button {
-    &[data-theme="dark"]{
-        background-color: var(--white);
-        color: black;
-        &:hover,
-        &:focus {
-            outline: none;
-            background-color: var(--orange);    
-        }
-    }
+
+[data-theme="dark"] .modal-button {
+    border: 1px solid var(--white);
+    // color: black;
 }
+
+[data-theme="dark"] .modal-button:hover,
+[data-theme="dark"] .modal-button:focus {
+    outline: none;
+    background-color: var(--orange);
+}
+
+// .modal-button {
+//     &[data-theme="dark"]{
+//         background-color: var(--white);
+//         color: black;
+//         &:hover,
+//         &:focus {
+//             outline: none;
+//             background-color: var(--orange);    
+//         }
+//     }
+// }
 
 // -------------------------------------------MY LIBRARY MOVIE LIST ---------------------------------------------------------
 .movie-list {

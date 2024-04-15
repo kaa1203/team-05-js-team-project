@@ -20,8 +20,12 @@ async function searchMovies(e) {
     try {
         let res =  await fetch(`${BASE_URL}/search/movie?api_key=${key}&language=${language}&query=${q}&include_adult=${include_adult}`);
         let data = await res.json();
-        createCards(data.results, true);
-        console.log(data)
+        
+        if (q.trim() !== "") {
+            createCards(data.results, true);
+            // q = "";
+            search_bar.value = "";
+        }
     } catch (e) {
         console.log(e);
     } 

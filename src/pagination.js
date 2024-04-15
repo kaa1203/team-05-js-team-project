@@ -48,7 +48,7 @@ function generatePaginationLinks() {
     startPage = Math.floor((currentPage - 1) / 10) * 10 + 1;
     endPage = Math.min(startPage + 9, totalPages);
   }
-
+  
   for (let i = startPage; i <= endPage; i++) {
     const link = document.createElement('a');
     link.href = '#';
@@ -68,20 +68,17 @@ function generatePaginationLinks() {
 }
 
 prevButton.addEventListener('click', function () {
-  if (currentPage > 10) {
-    currentPage -= 10;
-  } else {
+  if (currentPage <= 1) {
     currentPage = 1;
+  } else {
+    currentPage -= 1;
   }
   fetchAndDisplayMovies();
 });
 
 nextButton.addEventListener('click', function () {
-  if (currentPage + 10 <= totalPages) {
-    currentPage += 10;
-  } else {
-    currentPage = 1;
-  }
+  currentPage += 1;
+  page = currentPage;
   fetchAndDisplayMovies();
 });
 

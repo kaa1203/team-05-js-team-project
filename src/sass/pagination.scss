@@ -62,8 +62,13 @@
 }
 
 #pagination-links a.active {
-    background-color: var(--orange);
+    background-color: var(--orange)!important;
     color: var(--white);
+}
+
+[data-theme="dark"] #pagination-links a {
+    background-color: transparent;
+    color: var(--white)
 }
 
 /* Media Queries */
