@@ -27,21 +27,27 @@ document.addEventListener("click", onClick);
 movieCon.addEventListener("click", movieClicked)
 
 function onClick(e) {
+    let watchButton = document.querySelector('.ml-buttons .ml-button:nth-child(1)');
+    let queueButton = document.querySelector('.ml-buttons .ml-button:nth-child(2)');
     if (e.target.tagName === "BUTTON") {
         if (e.target.innerText === "WATCHED") {
             updateLists(); // Update watchList and queueList
             renderList(watchList,"WATCHED"); // Render the watchlist
             // Update button active state
-            document.querySelector('.ml-buttons .ml-button:nth-child(1)').classList.add('active');
-            document.querySelector('.ml-buttons .ml-button:nth-child(2)').classList.remove('active');
+            watchButton.disabled = true;
+            queueButton.disabled = false;
+            watchButton.classList.add('active');
+            queueButton.classList.remove('active');
         }
 
         if (e.target.innerText === "QUEUE") {
             updateLists(); // Update watchList and queueList
             renderList(queueList,"QUEUE"); // Render the queuelist
             // Update button active state
-            document.querySelector('.ml-buttons .ml-button:nth-child(1)').classList.remove('active');
-            document.querySelector('.ml-buttons .ml-button:nth-child(2)').classList.add('active');
+            queueButton.disabled = true;
+            watchButton.disabled = false;
+            watchButton.classList.remove('active');
+            queueButton.classList.add('active');
         }
     }
 }

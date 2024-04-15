@@ -82,7 +82,7 @@ export function createCards(movies, boolean) {
                   <li class="movie-item" data-id=${id}>
                       <a href="${poster_link}" class="movie-link">
                           <div class="movie-card" data-popularity=${popularity.toFixed(1)}>
-                              <img src="${poster_link}" alt="${overview}">
+                              <img src="${poster_link}" alt="${overview}" loading="lazy">
                               <div class="movie-details-wrapper">
                                   <p class="movie-title" data-title="${original_title}">${title}</p>
                                   <div class="movie-details">
@@ -100,7 +100,7 @@ export function createCards(movies, boolean) {
                   <li class="movie-item" data-id=${id}>
                       <a href="${poster_link}" class="movie-link">
                           <div class="movie-card" data-popularity=${popularity}>
-                              <img src="${poster_link}" alt="${overview}">
+                              <img src="${poster_link}" alt="${overview}" loading="lazy">
                               <div class="movie-details-wrapper">
                                   <p class="movie-title" data-title="${original_title}">${title}</p>
                                   <div class="movie-details">
@@ -114,7 +114,6 @@ export function createCards(movies, boolean) {
                   </li>
               `;
         }
-
         setTimeout(() => { 
           loaderEl.classList.add("is-hidden");
           movieGalleryEl.insertAdjacentHTML('afterbegin', moviesEl);
