@@ -199,7 +199,7 @@ function generatePaginationLinks() {
     link.addEventListener('click', function (event) {
       event.preventDefault();
       currentPage = parseInt(this.textContent);
-      fetchAndDisplayMovies(fetchLink);
+      fetchAndDisplayMovies(); // No need to pass fetchLink here
     });
     paginationContainer.appendChild(link);
   }
