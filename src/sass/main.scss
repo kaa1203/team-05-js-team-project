@@ -1,13 +1,56 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure that the body takes up the full viewport height */
+}
+
+main {
+    flex: 1; /* Allow the main content to grow to fill the available space */
+}
+
+.container {
+    max-width: 100%;
+}
+
 .movie-list {
+
+    // Mobile View
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
-    gap: 20px;
+    gap: 30px;
+
+    // tablet view
+    @media screen and (min-width: 768px) {
+        width: 768px;
+    }
+    // laptop view
+    @media screen and (min-width: 1024px) {
+        width: 1024px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+    }
+//     align-items: center;
+//     gap: 20px;
 }
 
 .movie-item {
-    width: calc(100% / 3 - 40px);
+
+    // mobile view
+    position: relative;
+
+    // tablet view
+     @media screen and (min-width: 768px) {
+
+     }
+
+    // laptop view
+    @media screen and (min-width: 1024px) {
+        width: calc(100% / 3 - 40px);
+    }
+
 }
 
 .movie-details-wrapper {
@@ -62,26 +105,32 @@
     }
 }
 
-@media (max-width:779px) { //mobile
-    main .container {
-        width: 320px;
+@media only screen and (min-width: 768px) {
+    .container {
+        max-width: 100%;
     }
 }
 
-@media (min-width: 780px) and (max-width: 1199px) { //tablet
-    main .container {
-        width: 780px;
-    }
+// @media (max-width:779px) { //mobile
+//     main .container {
+//         width: 320px;
+//     }
+// }
 
-    main .movie-list {
-        gap: 10px;
-    }
+// @media (min-width: 780px) and (max-width: 1199px) { //tablet
+//     main .container {
+//         width: 780px;
+//     }
 
-    main .movie-item {
-        width: calc(100% / 2 - 20px);
-    }
+//     main .movie-list {
+//         gap: 10px;
+//     }
 
-    main .movie-item {
-        width: 300px;
-    }
-}
+//     main .movie-item {
+//         width: calc(100% / 2 - 20px);
+//     }
+
+//     main .movie-item {
+//         width: 300px;
+//     }
+// }

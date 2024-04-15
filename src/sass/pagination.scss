@@ -72,7 +72,8 @@
 }
 
 /* Media Queries */
-
+/* 
+commented to not override the media queries inside main.scss
 @media only screen and (max-width: 768px) {
     #container {
         max-width: 600px;
@@ -96,3 +97,5 @@
         max-width: 800px;
     }
 }
+
+*/
